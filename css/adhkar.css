@@ -1,0 +1,178 @@
+/* =========================
+   ADHKAR HERO
+========================= */
+
+.adhkar-hero {
+    padding: 75px 20px;
+    text-align: center;
+
+    background-color: var(--primary);
+    color: var(--white);
+}
+
+.adhkar-hero h1 {
+    font-size: 46px;
+    margin-bottom: 10px;
+}
+
+.adhkar-hero p {
+    color: #dce8e2;
+    font-size: 18px;
+}
+
+
+/* =========================
+   SECTION
+========================= */
+
+.adhkar-section {
+    padding: 60px 0;
+    background-color: var(--background);
+}
+
+
+/* =========================
+   CATEGORIES
+========================= */
+
+.adhkar-categories {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+
+    gap: 12px;
+
+    margin-bottom: 35px;
+}
+
+.category-button {
+    border: 1px solid var(--border);
+
+    background-color: var(--white);
+    color: var(--primary);
+
+    padding: 13px 20px;
+
+    border-radius: 12px;
+
+    font-family: inherit;
+    font-size: 15px;
+    font-weight: 700;
+
+    cursor: pointer;
+
+    transition: 0.3s ease;
+}
+
+.category-button:hover,
+.category-button.active {
+    background-color: var(--primary);
+    color: var(--white);
+}
+
+
+/* =========================
+   ADHKAR CARD
+========================= */
+
+.adhkar-container {
+    max-width: 850px;
+    margin: 0 auto;
+}
+
+.dhikr-card {
+    background-color: var(--white);
+
+    border: 1px solid var(--border);
+    border-radius: 18px;
+
+    padding: 30px;
+
+    margin-bottom: 18px;
+
+    box-shadow: var(--shadow);
+}
+
+.dhikr-text {
+    font-size: 23px;
+    line-height: 2.3;
+
+    color: var(--text);
+
+    margin-bottom: 25px;
+}
+
+
+/* =========================
+   COUNTER
+========================= */
+
+.dhikr-footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    gap: 15px;
+}
+
+.dhikr-count {
+    color: var(--primary);
+    font-weight: 700;
+}
+
+.dhikr-button {
+    border: none;
+
+    background-color: var(--primary);
+    color: var(--white);
+
+    padding: 11px 22px;
+
+    border-radius: 10px;
+
+    font-family: inherit;
+    font-weight: 700;
+
+    cursor: pointer;
+
+    transition: 0.2s ease;
+}
+
+.dhikr-button:hover {
+    transform: translateY(-2px);
+}
+
+.dhikr-button:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+
+/* =========================
+   RESPONSIVE
+========================= */
+
+@media (max-width: 600px) {
+
+    .adhkar-hero {
+        padding: 55px 15px;
+    }
+
+    .adhkar-hero h1 {
+        font-size: 36px;
+    }
+
+    .dhikr-card {
+        padding: 22px;
+    }
+
+    .dhikr-text {
+        font-size: 20px;
+    }
+
+    .dhikr-footer {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+}

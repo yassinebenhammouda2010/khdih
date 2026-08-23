@@ -1,0 +1,205 @@
+/* =========================
+   SURAH PAGE
+========================= */
+
+.surah-page {
+    padding: 70px 0;
+    background-color: var(--background);
+    min-height: 80vh;
+}
+
+
+/* =========================
+   SURAH HEADER
+========================= */
+
+.surah-header {
+    max-width: 800px;
+    margin: 0 auto 30px;
+    padding: 40px;
+    background-color: var(--primary);
+    color: white;
+    border-radius: 20px;
+    text-align: center;
+}
+
+.surah-header h1 {
+    font-size: 40px;
+    margin-bottom: 8px;
+}
+
+.surah-header p {
+    color: #dce8e2;
+}
+
+.surah-meta {
+    margin-top: 15px;
+    color: var(--secondary) !important;
+    font-weight: 700;
+}
+
+
+/* =========================
+   NAVIGATION SOURATE
+========================= */
+
+.surah-navigation {
+    max-width: 850px;
+    margin: 0 auto 30px;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    gap: 12px;
+}
+
+.surah-nav-button {
+    border: none;
+    background-color: var(--white);
+    color: var(--primary);
+
+    border: 1px solid var(--border);
+    border-radius: 10px;
+
+    padding: 11px 18px;
+
+    font-family: inherit;
+    font-size: 14px;
+    font-weight: 700;
+
+    cursor: pointer;
+
+    transition: 0.3s ease;
+}
+
+.surah-nav-button:hover {
+    background-color: var(--primary);
+    color: var(--white);
+
+    transform: translateY(-2px);
+}
+
+
+/* =========================
+   AYAHS
+========================= */
+
+.ayahs-container {
+    max-width: 850px;
+    margin: 0 auto;
+}
+
+.ayah-item {
+    background-color: var(--white);
+
+    border: 1px solid var(--border);
+    border-radius: 18px;
+
+    padding: 30px;
+
+    margin-bottom: 18px;
+
+    box-shadow: var(--shadow);
+
+    transition: 0.3s ease;
+}
+
+.ayah-item:hover {
+    border-color: var(--secondary);
+}
+
+
+/* Numéro du verset */
+
+.ayah-number {
+    display: inline-flex;
+
+    width: 36px;
+    height: 36px;
+
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 50%;
+
+    background-color: #edf4f0;
+
+    color: var(--primary);
+
+    font-size: 14px;
+    font-weight: 800;
+
+    margin-left: 10px;
+
+    vertical-align: middle;
+}
+
+
+/* Texte */
+
+.ayah-text {
+    font-size: 26px;
+
+    line-height: 2.4;
+
+    color: var(--text);
+
+    text-align: right;
+}
+
+
+/* =========================
+   BOTTOM NAVIGATION
+========================= */
+
+.bottom-navigation {
+    margin-top: 35px;
+    margin-bottom: 0;
+}
+
+
+/* =========================
+   RESPONSIVE
+========================= */
+
+@media (max-width: 650px) {
+
+    .surah-page {
+        padding: 40px 0;
+    }
+
+
+    .surah-header {
+        padding: 30px 20px;
+    }
+
+
+    .surah-header h1 {
+        font-size: 32px;
+    }
+
+
+    .surah-navigation {
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+
+
+    .surah-nav-button {
+        font-size: 13px;
+        padding: 9px 13px;
+    }
+
+
+    .ayah-item {
+        padding: 22px 17px;
+    }
+
+
+    .ayah-text {
+        font-size: 21px;
+        line-height: 2.3;
+    }
+
+}

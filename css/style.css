@@ -1,0 +1,653 @@
+/* =========================
+   RESET
+========================= */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: "Segoe UI", Tahoma, Arial, sans-serif;
+    background-color: #f8f6ef;
+    color: #1f2d27;
+    line-height: 1.8;
+}
+
+
+/* =========================
+   VARIABLES
+========================= */
+
+:root {
+    --primary: #174c3b;
+    --primary-light: #236b54;
+    --secondary: #c6a15b;
+    --background: #f8f6ef;
+    --white: #ffffff;
+    --text: #1f2d27;
+    --text-light: #68756f;
+    --border: #e6e1d5;
+    --shadow: 0 10px 30px rgba(23, 76, 59, 0.08);
+}
+
+
+/* =========================
+   GENERAL
+========================= */
+
+.container {
+    width: min(1100px, 90%);
+    margin: 0 auto;
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
+
+/* =========================
+   HEADER
+========================= */
+
+.header {
+    background-color: var(--white);
+    border-bottom: 1px solid var(--border);
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+}
+
+.header-content {
+    min-height: 78px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 25px;
+}
+
+
+/* Logo */
+
+.logo {
+    font-size: 30px;
+    font-weight: 800;
+    color: var(--primary);
+    letter-spacing: 0.5px;
+}
+
+
+/* Navigation */
+
+.navbar {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
+    flex: 1;
+}
+
+.navbar a {
+    padding: 9px 15px;
+    border-radius: 10px;
+    color: var(--text-light);
+    font-size: 15px;
+    font-weight: 600;
+    transition: all 0.3s ease;
+}
+
+.navbar a:hover,
+.navbar a.active {
+    background-color: #edf4f0;
+    color: var(--primary);
+}
+
+
+/* Header Button */
+
+.header-button {
+    background-color: var(--primary);
+    color: var(--white);
+    padding: 9px 20px;
+    border-radius: 10px;
+    font-size: 15px;
+    font-weight: 700;
+    transition: all 0.3s ease;
+}
+
+.header-button:hover {
+    background-color: var(--primary-light);
+    transform: translateY(-2px);
+}
+
+/* Logo */
+
+.logo {
+    font-size: 30px;
+    font-weight: 800;
+    color: var(--primary);
+    letter-spacing: 0.5px;
+}
+
+
+/* Navigation */
+
+.navbar {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.navbar a {
+    padding: 8px 16px;
+    border-radius: 10px;
+    color: var(--text-light);
+    font-size: 16px;
+    transition: 0.3s ease;
+}
+
+.navbar a:hover,
+.navbar a.active {
+    background-color: #edf4f0;
+    color: var(--primary);
+}
+
+
+/* =========================
+   HERO
+========================= */
+
+.hero {
+    padding: 100px 20px;
+    text-align: center;
+    background:
+        radial-gradient(
+            circle at top,
+            rgba(198, 161, 91, 0.15),
+            transparent 40%
+        ),
+        var(--primary);
+    color: var(--white);
+}
+
+.hero h1 {
+    font-size: clamp(36px, 6vw, 60px);
+    margin-bottom: 15px;
+    font-weight: 800;
+}
+
+.hero p {
+    font-size: 20px;
+    color: #e1ebe6;
+    margin-bottom: 35px;
+}
+
+.hero-button {
+    display: inline-block;
+    padding: 13px 32px;
+    background-color: var(--secondary);
+    color: #fff;
+    border-radius: 12px;
+    font-size: 17px;
+    font-weight: 700;
+    transition: 0.3s ease;
+}
+
+.hero-button:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+}
+
+
+/* =========================
+   SECTIONS
+========================= */
+
+.prayer-section,
+.ayah-section,
+.adhkar-section {
+    padding: 70px 0;
+}
+
+.prayer-section {
+    background-color: var(--background);
+}
+
+.ayah-section {
+    background-color: var(--white);
+}
+
+.adhkar-section {
+    background-color: var(--background);
+}
+
+.section-card {
+    background-color: var(--white);
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    padding: 40px;
+    text-align: center;
+    box-shadow: var(--shadow);
+}
+
+.section-card h2,
+.adhkar-section > .container > h2 {
+    color: var(--primary);
+    font-size: 28px;
+    margin-bottom: 20px;
+}
+
+
+/* =========================
+   PRAYER
+========================= */
+
+.prayer-name {
+    color: var(--secondary);
+    font-size: 24px;
+    font-weight: 700;
+}
+
+.prayer-time {
+    color: var(--primary);
+    font-size: 48px;
+    font-weight: 800;
+    direction: ltr;
+    margin: 5px 0;
+}
+
+.section-card p:last-child {
+    color: var(--text-light);
+}
+
+
+/* =========================
+   AYAH
+========================= */
+
+.ayah {
+    max-width: 800px;
+    margin: 0 auto 15px;
+    color: var(--text);
+    font-size: 25px;
+    line-height: 2.2;
+    font-weight: 600;
+}
+
+.ayah-source {
+    color: var(--secondary);
+    font-size: 16px;
+}
+
+
+/* =========================
+   ADHKAR
+========================= */
+
+.adhkar-section > .container > h2 {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.cards {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 25px;
+}
+
+.card {
+    background-color: var(--white);
+    border: 1px solid var(--border);
+    border-radius: 18px;
+    padding: 30px;
+    text-align: center;
+    box-shadow: var(--shadow);
+    transition: 0.3s ease;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 15px 35px rgba(23, 76, 59, 0.12);
+}
+
+.card h3 {
+    color: var(--primary);
+    font-size: 22px;
+    margin-bottom: 8px;
+}
+
+.card p {
+    color: var(--text-light);
+    margin-bottom: 18px;
+}
+
+.card a {
+    display: inline-block;
+    color: var(--primary-light);
+    font-weight: 700;
+    border-bottom: 2px solid var(--secondary);
+    padding-bottom: 2px;
+}
+
+
+/* =========================
+   FOOTER
+========================= */
+
+.footer {
+    background-color: #123c30;
+    color: #dce8e2;
+    text-align: center;
+    padding: 25px 0;
+}
+
+.footer p {
+    font-size: 14px;
+}
+
+
+/* =========================
+   RESPONSIVE
+========================= */
+
+@media (max-width: 700px) {
+
+    .hero {
+        padding: 75px 15px;
+    }
+
+    .hero h1 {
+        font-size: 38px;
+    }
+
+    .hero p {
+        font-size: 17px;
+    }
+
+    .prayer-section,
+    .ayah-section,
+    .adhkar-section {
+        padding: 45px 0;
+    }
+
+    .section-card {
+        padding: 25px 18px;
+    }
+
+    .ayah {
+        font-size: 21px;
+    }
+
+    .prayer-time {
+        font-size: 40px;
+    }
+
+    .cards {
+        grid-template-columns: 1fr;
+    }
+}
+/* =========================
+   CURRENT TIME
+========================= */
+
+.current-time {
+    margin-top: 25px;
+    padding-top: 20px;
+    border-top: 1px solid var(--border);
+    color: var(--text-light);
+    font-size: 15px;
+}
+
+.current-time span {
+    display: block;
+    margin-top: 5px;
+    color: var(--primary);
+    font-size: 24px;
+    font-weight: 800;
+    direction: ltr;
+}
+/* =========================
+   SECTION TITLES
+========================= */
+
+.section-title {
+    text-align: center;
+    color: var(--primary);
+    font-size: 30px;
+    margin-bottom: 5px;
+}
+
+.section-subtitle {
+    text-align: center;
+    color: var(--text-light);
+    margin-bottom: 30px;
+}
+
+
+/* =========================
+   NEXT PRAYER
+========================= */
+
+.next-prayer-card {
+    max-width: 650px;
+    margin: 0 auto 30px;
+}
+
+.next-prayer-card h3 {
+    color: var(--text-light);
+    font-size: 17px;
+    margin-bottom: 10px;
+}
+
+
+/* =========================
+   PRAYER GRID
+========================= */
+
+.prayer-grid {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 15px;
+}
+
+.prayer-box {
+    background-color: var(--white);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 22px 10px;
+    text-align: center;
+    box-shadow: var(--shadow);
+    transition: 0.3s ease;
+}
+
+.prayer-box:hover {
+    transform: translateY(-4px);
+}
+
+.prayer-box span {
+    display: block;
+    color: var(--text-light);
+    font-size: 16px;
+    margin-bottom: 5px;
+}
+
+.prayer-box strong {
+    display: block;
+    color: var(--primary);
+    font-size: 22px;
+    direction: ltr;
+}
+
+
+/* =========================
+   RESPONSIVE PRAYER
+========================= */
+
+@media (max-width: 800px) {
+
+    .prayer-grid {
+        grid-template-columns: repeat(3, 1fr);
+    }
+
+}
+
+@media (max-width: 500px) {
+
+    .prayer-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+}
+/* =========================
+   LOCATION
+========================= */
+
+.location-button {
+    display: block;
+    margin: 0 auto 12px;
+    padding: 11px 22px;
+    border: none;
+    border-radius: 10px;
+    background-color: var(--primary);
+    color: white;
+    font-family: inherit;
+    font-size: 15px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: 0.3s ease;
+}
+
+.location-button:hover {
+    background-color: var(--primary-light);
+    transform: translateY(-2px);
+}
+
+.location-status {
+    text-align: center;
+    color: var(--text-light);
+    margin-bottom: 25px;
+}
+/* =========================
+   PRAYER COUNTDOWN
+========================= */
+
+#prayer-countdown {
+    margin-top: 10px;
+    color: var(--primary-light);
+    font-size: 18px;
+    font-weight: 700;
+}
+/* =========================
+   MOBILE MENU
+========================= */
+
+.menu-toggle {
+    display: none;
+
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
+
+    width: 34px;
+    height: 34px;
+
+    border: none;
+    background: transparent;
+
+    color: var(--primary);
+
+    font-size: 28px;
+
+    cursor: pointer;
+}
+
+.menu-toggle span {
+    display: block;
+    width: 22px;
+    height: 3px;
+    background-color: var(--primary);
+    border-radius: 2px;
+}
+
+
+/* =========================
+   MOBILE
+========================= */
+
+@media (max-width: 768px) {
+
+    .header-content {
+        position: relative;
+    }
+
+
+    .menu-toggle {
+        display: flex;
+    }
+
+
+    .header-button {
+        display: none;
+    }
+
+
+    .navbar {
+
+        position: absolute;
+
+        top: calc(100% + 10px);
+
+        right: 0;
+        left: 0;
+
+        display: none;
+
+        flex-direction: column;
+
+        gap: 0;
+
+        padding: 10px;
+
+        background-color: var(--white);
+
+        border: 1px solid var(--border);
+
+        border-radius: 14px;
+
+        box-shadow: var(--shadow);
+
+        z-index: 1000;
+
+    }
+
+
+    .navbar.open {
+        display: flex;
+    }
+
+
+    .navbar a {
+
+        width: 100%;
+
+        padding: 14px 16px;
+
+        border-radius: 10px;
+
+        text-align: right;
+
+    }
+
+
+    .navbar a:hover {
+        background-color: #edf4f0;
+    }
+
+}
