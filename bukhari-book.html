@@ -1,0 +1,591 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Kihdih | صحيح البخاري</title>
+
+    <link rel="stylesheet" href="css/style.css">
+
+    <style>
+
+        .bukhari-book-hero {
+            text-align: center;
+            padding: 40px 20px 20px;
+        }
+
+        #book-info {
+            color: var(--color-primary, #2e7d32);
+            font-weight: bold;
+        }
+
+        .book-back-link {
+            display: inline-block;
+            margin: 10px 0 5px;
+            text-decoration: none;
+            color: inherit;
+        }
+
+        .book-stats {
+            font-size: 0.85rem;
+            color: #777;
+            margin-bottom: 15px;
+        }
+
+        .book-toolbar {
+            max-width: 800px;
+            margin: 0 auto 20px;
+            padding: 0 15px;
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .book-toolbar input {
+            flex: 1;
+            min-width: 200px;
+            padding: 10px 14px;
+            border-radius: 8px;
+            border: 1px solid #ddd;
+            font-family: inherit;
+        }
+
+        .toc-toggle {
+            padding: 10px 16px;
+            border-radius: 8px;
+            border: 1px solid #ddd;
+            background: #f3f7f3;
+            cursor: pointer;
+            font-family: inherit;
+            white-space: nowrap;
+        }
+
+        #toc-panel {
+            max-width: 800px;
+            margin: 0 auto 20px;
+            padding: 0 15px;
+            display: none;
+        }
+
+        #toc-panel.open {
+            display: block;
+        }
+
+        .toc-list {
+            max-height: 300px;
+            overflow-y: auto;
+            border: 1px solid #eee;
+            border-radius: 10px;
+            padding: 10px 15px;
+            background: #fafafa;
+        }
+
+        .toc-list a {
+            display: block;
+            padding: 6px 0;
+            color: inherit;
+            text-decoration: none;
+            border-bottom: 1px dashed #eee;
+            font-size: 0.9rem;
+        }
+
+        .toc-list a:hover {
+            color: #2e7d32;
+        }
+
+        .chapter-block {
+            max-width: 800px;
+            margin: 0 auto 30px;
+            padding: 0 15px;
+            scroll-margin-top: 20px;
+        }
+
+        .chapter-title {
+            background: #f3f7f3;
+            border-right: 4px solid #2e7d32;
+            padding: 10px 15px;
+            border-radius: 6px;
+            margin-bottom: 15px;
+            font-size: 1.1rem;
+        }
+
+        .hadith-card {
+            background: #fff;
+            border: 1px solid #e2e2e2;
+            border-radius: 10px;
+            padding: 18px 20px;
+            margin-bottom: 15px;
+            line-height: 2.1;
+            font-size: 1.15rem;
+        }
+
+        .hadith-card.hidden-by-search {
+            display: none;
+        }
+
+        .hadith-meta {
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-top: 12px;
+            padding-top: 10px;
+            border-top: 1px dashed #ddd;
+            font-size: 0.85rem;
+            color: #666;
+        }
+
+        .hadith-grade {
+            background: #e8f5e9;
+            color: #2e7d32;
+            padding: 2px 10px;
+            border-radius: 20px;
+            font-weight: bold;
+        }
+
+        .loading, .error-msg {
+            text-align: center;
+            padding: 40px 15px;
+            color: #666;
+        }
+
+        .book-nav {
+            max-width: 800px;
+            margin: 0 auto 20px;
+            display: flex;
+            justify-content: space-between;
+            gap: 10px;
+            padding: 0 15px;
+        }
+
+        .book-nav a {
+            padding: 8px 16px;
+            border-radius: 8px;
+            background: #f3f7f3;
+            text-decoration: none;
+            color: inherit;
+            font-size: 0.9rem;
+        }
+
+        .load-more-wrap {
+            text-align: center;
+            margin: 20px 0 40px;
+        }
+
+        #load-more-btn {
+            padding: 12px 28px;
+            border-radius: 30px;
+            border: none;
+            background: #2e7d32;
+            color: #fff;
+            font-family: inherit;
+            font-size: 1rem;
+            cursor: pointer;
+        }
+
+        #load-more-btn:hover {
+            background: #256428;
+        }
+
+        .no-results {
+            text-align: center;
+            padding: 30px;
+            color: #888;
+        }
+
+    </style>
+</head>
+
+<body>
+
+    <!-- ================= HEADER ================= -->
+
+    <header class="header">
+
+        <div class="container header-content">
+
+            <a href="index.html" class="logo">
+                Kihdih
+            </a>
+
+            <nav class="navbar" id="navbar">
+
+                <a href="index.html">
+                    الرئيسية
+                </a>
+
+                <a href="quran.html">
+                    القرآن الكريم
+                </a>
+
+                <a href="bukhari.html" class="active">
+                    صحيح البخاري
+                </a>
+
+                <a href="adhkar.html">
+                    الأذكار
+                </a>
+
+                <a href="prayer.html">
+                    الصلاة
+                </a>
+
+                <a href="aya.html">
+                    آية لك
+                </a>
+
+            </nav>
+
+            <a href="quran.html" class="header-button">
+                ابدأ القراءة
+            </a>
+
+            <button
+                class="menu-toggle"
+                id="menu-toggle"
+                aria-label="فتح القائمة"
+                aria-expanded="false"
+            >
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+
+        </div>
+
+    </header>
+
+
+    <main>
+
+        <section class="bukhari-book-hero">
+
+            <h1>صحيح البخاري</h1>
+
+            <p id="book-info">
+                جاري تحميل الكتاب...
+            </p>
+
+            <p id="book-stats" class="book-stats"></p>
+
+            <a href="bukhari.html" class="book-back-link">
+                ← العودة إلى كل الكتب (97)
+            </a>
+
+        </section>
+
+        <div id="book-nav-top" class="book-nav"></div>
+
+        <div class="book-toolbar">
+
+            <input
+                type="text"
+                id="hadith-search"
+                placeholder="ابحث داخل هذا الكتاب..."
+                disabled
+            >
+
+            <button id="toc-toggle-btn" class="toc-toggle" disabled>
+                📑 فهرس الأبواب
+            </button>
+
+        </div>
+
+        <div id="toc-panel">
+            <div id="toc-list" class="toc-list"></div>
+        </div>
+
+        <div id="book-content">
+            <div class="loading">جاري تحميل الأحاديث...</div>
+        </div>
+
+        <div id="load-more-wrap" class="load-more-wrap"></div>
+
+        <div id="book-nav-bottom" class="book-nav"></div>
+
+    </main>
+
+
+    <!-- ================= FOOTER ================= -->
+
+    <footer class="footer">
+
+        <div class="container">
+
+            <p>© 2026 Kihdih - موقع إسلامي</p>
+
+        </div>
+
+    </footer>
+
+
+    <script>
+
+        // كل كتب صحيح البخاري الـ 97 (للتنقل بين الكتاب السابق/التالي)
+        const AVAILABLE_BOOKS = Array.from({ length: 97 }, (_, i) => i + 1);
+
+        const CHAPTERS_PER_PAGE = 15; // عدد الأبواب المعروضة في كل مرة (لتحسين الأداء في الكتب الكبيرة)
+
+        const params = new URLSearchParams(window.location.search);
+        const bookNumber = parseInt(params.get("book"), 10);
+
+        const bookInfoEl = document.getElementById("book-info");
+        const bookStatsEl = document.getElementById("book-stats");
+        const contentEl = document.getElementById("book-content");
+        const navTopEl = document.getElementById("book-nav-top");
+        const navBottomEl = document.getElementById("book-nav-bottom");
+        const searchEl = document.getElementById("hadith-search");
+        const tocToggleBtn = document.getElementById("toc-toggle-btn");
+        const tocPanel = document.getElementById("toc-panel");
+        const tocListEl = document.getElementById("toc-list");
+        const loadMoreWrap = document.getElementById("load-more-wrap");
+
+        let currentBook = null;
+        let renderedChapters = 0;
+
+        function escapeHtml(str) {
+            return (str || "")
+                .replace(/&/g, "&amp;")
+                .replace(/</g, "&lt;")
+                .replace(/>/g, "&gt;");
+        }
+
+        function renderNav() {
+            const idx = AVAILABLE_BOOKS.indexOf(bookNumber);
+            let html = "";
+
+            if (idx > 0) {
+                html += `<a href="bukhari-book.html?book=${AVAILABLE_BOOKS[idx - 1]}">→ الكتاب السابق</a>`;
+            } else {
+                html += `<span></span>`;
+            }
+
+            html += `<a href="bukhari.html">📚 كل الكتب</a>`;
+
+            if (idx !== -1 && idx < AVAILABLE_BOOKS.length - 1) {
+                html += `<a href="bukhari-book.html?book=${AVAILABLE_BOOKS[idx + 1]}">الكتاب التالي ←</a>`;
+            } else {
+                html += `<span></span>`;
+            }
+
+            navTopEl.innerHTML = html;
+            navBottomEl.innerHTML = html;
+        }
+
+        function chapterHtml(chapter) {
+
+            const chapterTitle = chapter.chapterName && chapter.chapterName.arabic
+                ? chapter.chapterName.arabic
+                : "باب";
+
+            let html = `<div class="chapter-block" id="chapter-${chapter.chapterNumber}">`;
+            html += `<div class="chapter-title">${escapeHtml(chapterTitle)}</div>`;
+
+            chapter.hadiths.forEach((hadith) => {
+                html += `
+                    <div class="hadith-card" data-search="${escapeHtml(hadith.arabic)}">
+                        <p>${escapeHtml(hadith.arabic)}</p>
+                        <div class="hadith-meta">
+                            <span>${escapeHtml(hadith.inBookReference || "")}</span>
+                            <span class="hadith-grade">${escapeHtml(hadith.grade || "صحيح")}</span>
+                        </div>
+                    </div>
+                `;
+            });
+
+            html += `</div>`;
+            return html;
+        }
+
+        function renderNextChapterBatch() {
+
+            if (!currentBook) return;
+
+            const chapters = currentBook.chapters;
+            const nextBatch = chapters.slice(renderedChapters, renderedChapters + CHAPTERS_PER_PAGE);
+
+            if (renderedChapters === 0) {
+                contentEl.innerHTML = "";
+            }
+
+            nextBatch.forEach((chapter) => {
+                contentEl.insertAdjacentHTML("beforeend", chapterHtml(chapter));
+            });
+
+            renderedChapters += nextBatch.length;
+
+            updateLoadMoreButton();
+        }
+
+        function updateLoadMoreButton() {
+
+            if (!currentBook) return;
+
+            const remaining = currentBook.chapters.length - renderedChapters;
+
+            if (remaining > 0) {
+                loadMoreWrap.innerHTML = `
+                    <button id="load-more-btn">
+                        تحميل ${Math.min(remaining, CHAPTERS_PER_PAGE)} بابًا آخر (متبقي ${remaining}) ⬇️
+                    </button>
+                `;
+                document.getElementById("load-more-btn").addEventListener("click", renderNextChapterBatch);
+            } else {
+                loadMoreWrap.innerHTML = "";
+            }
+        }
+
+        function renderToc() {
+
+            if (!currentBook) return;
+
+            tocListEl.innerHTML = currentBook.chapters.map((chapter) => {
+
+                const title = chapter.chapterName && chapter.chapterName.arabic
+                    ? chapter.chapterName.arabic
+                    : "باب";
+
+                return `<a href="#chapter-${chapter.chapterNumber}" data-chapter="${chapter.chapterNumber}">${escapeHtml(title)}</a>`;
+
+            }).join("");
+
+        }
+
+        function ensureChapterRendered(chapterNumber) {
+
+            // تحميل كل الأبواب حتى الباب المطلوب إن لم يكن معروضًا بعد
+            const idx = currentBook.chapters.findIndex((c) => c.chapterNumber === chapterNumber);
+
+            if (idx === -1) return;
+
+            if (idx >= renderedChapters) {
+                while (renderedChapters <= idx) {
+                    renderNextChapterBatch();
+                }
+            }
+        }
+
+        tocToggleBtn.addEventListener("click", () => {
+            tocPanel.classList.toggle("open");
+        });
+
+        tocListEl.addEventListener("click", (e) => {
+
+            const link = e.target.closest("a[data-chapter]");
+            if (!link) return;
+
+            const chapterNumber = parseInt(link.dataset.chapter, 10);
+            ensureChapterRendered(chapterNumber);
+
+            setTimeout(() => {
+                document.getElementById(`chapter-${chapterNumber}`)?.scrollIntoView({ behavior: "smooth" });
+            }, 50);
+
+            tocPanel.classList.remove("open");
+
+        });
+
+        searchEl.addEventListener("input", () => {
+
+            const query = searchEl.value.trim();
+
+            if (!query) {
+                // إعادة كل شيء لحالته الطبيعية عند إفراغ البحث
+                document.querySelectorAll(".hadith-card").forEach((card) => {
+                    card.classList.remove("hidden-by-search");
+                });
+                document.querySelectorAll(".chapter-block").forEach((block) => {
+                    block.style.display = "";
+                });
+                document.getElementById("no-results-msg")?.remove();
+                return;
+            }
+
+            // عند البحث: تحميل كل الأبواب المتبقية أولًا لضمان شمول البحث للكتاب كاملًا
+            while (renderedChapters < currentBook.chapters.length) {
+                renderNextChapterBatch();
+            }
+
+            let anyVisible = false;
+
+            document.querySelectorAll(".chapter-block").forEach((block) => {
+
+                let blockHasMatch = false;
+
+                block.querySelectorAll(".hadith-card").forEach((card) => {
+                    const text = card.dataset.search || "";
+                    const match = text.includes(query);
+                    card.classList.toggle("hidden-by-search", !match);
+                    if (match) blockHasMatch = true;
+                });
+
+                block.style.display = blockHasMatch ? "" : "none";
+                if (blockHasMatch) anyVisible = true;
+
+            });
+
+            document.getElementById("no-results-msg")?.remove();
+
+            if (!anyVisible) {
+                contentEl.insertAdjacentHTML("beforeend", `<p id="no-results-msg" class="no-results">لا توجد نتائج مطابقة لبحثك في هذا الكتاب</p>`);
+            }
+
+        });
+
+        async function loadBook() {
+
+            if (!bookNumber || isNaN(bookNumber) || bookNumber < 1 || bookNumber > 97) {
+                bookInfoEl.textContent = "رقم الكتاب غير صالح";
+                contentEl.innerHTML = `<p class="error-msg">لم يتم تحديد كتاب صحيح (من 1 إلى 97). عد إلى صفحة الكتب واختر كتابًا.</p>`;
+                return;
+            }
+
+            renderNav();
+
+            const paddedNumber = String(bookNumber).padStart(2, "0");
+            const url = `https://raw.githubusercontent.com/Ikhan/sahih-bukhari-english/main/data/book-${paddedNumber}.json`;
+
+            try {
+
+                const response = await fetch(url);
+
+                if (!response.ok) {
+                    throw new Error("تعذر العثور على هذا الكتاب");
+                }
+
+                const book = await response.json();
+                currentBook = book;
+
+                const totalHadiths = book.chapters.reduce((sum, c) => sum + c.hadiths.length, 0);
+
+                bookInfoEl.textContent = `${book.bookName.arabic} — الكتاب رقم ${book.bookNumber}`;
+                bookStatsEl.textContent = `${book.chapters.length} بابًا · ${totalHadiths} حديثًا`;
+                document.title = `Kihdih | ${book.bookName.arabic}`;
+
+                searchEl.disabled = false;
+                tocToggleBtn.disabled = false;
+
+                renderToc();
+                renderNextChapterBatch();
+
+            } catch (err) {
+
+                bookInfoEl.textContent = "تعذر تحميل الكتاب";
+                contentEl.innerHTML = `<p class="error-msg">حدث خطأ أثناء تحميل الأحاديث. تأكد من اتصالك بالإنترنت وحاول مرة أخرى.</p>`;
+                console.error(err);
+
+            }
+
+        }
+
+        loadBook();
+
+    </script>
+
+    <script src="js/menu.js"></script>
+
+</body>
+
+</html>

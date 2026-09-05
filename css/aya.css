@@ -1,0 +1,216 @@
+.aya-page {
+    min-height: 80vh;
+    padding: 70px 0;
+
+    background-color: var(--background);
+}
+
+
+.aya-intro {
+    text-align: center;
+    margin-bottom: 40px;
+}
+
+
+.aya-intro span {
+    color: var(--primary);
+    font-weight: 700;
+}
+
+
+.aya-intro h1 {
+    margin: 12px 0;
+
+    font-size: 42px;
+    color: var(--text);
+}
+
+
+.aya-intro p {
+    color: var(--text-light);
+    font-size: 17px;
+}
+
+
+/* =========================
+   FEELINGS
+========================= */
+
+.feelings {
+    max-width: 900px;
+
+    margin: 0 auto 30px;
+
+    display: grid;
+
+    grid-template-columns: repeat(4, 1fr);
+
+    gap: 14px;
+}
+
+
+.feeling {
+    min-height: 100px;
+
+    border: 1px solid var(--border);
+
+    border-radius: 16px;
+
+    background-color: var(--white);
+
+    color: var(--text);
+
+    font-family: inherit;
+
+    font-size: 16px;
+    font-weight: 700;
+
+    cursor: pointer;
+
+    transition: 0.25s ease;
+}
+
+
+.feeling span {
+    display: block;
+
+    font-size: 30px;
+
+    margin-bottom: 8px;
+}
+
+
+.feeling:hover {
+    transform: translateY(-3px);
+
+    border-color: var(--secondary);
+}
+
+
+.feeling.selected {
+    background-color: var(--primary);
+
+    color: var(--white);
+
+    border-color: var(--primary);
+}
+
+
+/* =========================
+   BUTTON
+========================= */
+
+.show-aya {
+    display: block;
+
+    margin: 0 auto 35px;
+
+    padding: 14px 30px;
+
+    border: none;
+
+    border-radius: 12px;
+
+    background-color: var(--primary);
+
+    color: var(--white);
+
+    font-family: inherit;
+
+    font-size: 16px;
+    font-weight: 700;
+
+    cursor: pointer;
+
+    transition: 0.25s ease;
+}
+
+
+.show-aya:hover:not(:disabled) {
+    transform: translateY(-3px);
+}
+
+
+.show-aya:disabled {
+    opacity: 0.45;
+
+    cursor: not-allowed;
+}
+
+
+/* =========================
+   RESULT
+========================= */
+
+.aya-result {
+    max-width: 800px;
+
+    margin: 0 auto;
+
+    padding: 45px 30px;
+
+    background-color: var(--white);
+
+    border: 1px solid var(--border);
+
+    border-radius: 20px;
+
+    text-align: center;
+
+    box-shadow: var(--shadow);
+
+    transition: 0.3s ease;
+}
+
+
+.aya-result-icon {
+    font-size: 30px;
+
+    margin-bottom: 10px;
+}
+
+
+.aya-result h2 {
+    color: var(--primary);
+
+    margin-bottom: 20px;
+}
+
+
+.aya-text {
+    font-size: 27px;
+
+    line-height: 2.2;
+
+    color: var(--text);
+
+    margin-bottom: 15px;
+}
+
+
+.aya-reference {
+    color: var(--text-light);
+
+    font-size: 15px;
+}
+
+
+@media (max-width: 600px) {
+
+    .aya-page {
+        padding: 50px 15px;
+    }
+
+    .aya-intro h1 {
+        font-size: 32px;
+    }
+
+    .feelings {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .aya-text {
+        font-size: 22px;
+    }
+
+}
