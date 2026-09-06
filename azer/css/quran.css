@@ -1,0 +1,176 @@
+/* =========================
+   QURAN HERO
+========================= */
+
+.quran-hero {
+    padding: 80px 20px;
+    text-align: center;
+    background-color: var(--primary);
+    color: var(--white);
+}
+
+.quran-hero h1 {
+    font-size: 48px;
+    margin-bottom: 10px;
+}
+
+.quran-hero p {
+    color: #dce8e2;
+    font-size: 18px;
+}
+
+
+/* =========================
+   SURAHS SECTION
+========================= */
+
+.surahs-section {
+    padding: 70px 0;
+    background-color: var(--background);
+}
+
+.section-heading {
+    text-align: center;
+    margin-bottom: 35px;
+}
+
+.section-heading h2 {
+    color: var(--primary);
+    font-size: 30px;
+}
+
+.section-heading p {
+    color: var(--text-light);
+}
+
+
+/* =========================
+   SEARCH
+========================= */
+
+.quran-search {
+    max-width: 550px;
+    margin: 0 auto 40px;
+}
+
+.quran-search input {
+    width: 100%;
+    padding: 15px 20px;
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    background-color: var(--white);
+    color: var(--text);
+    font-family: inherit;
+    font-size: 16px;
+    outline: none;
+}
+
+.quran-search input:focus {
+    border-color: var(--primary);
+}
+
+
+/* =========================
+   SURAHS GRID
+========================= */
+
+.surahs-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+}
+
+
+/* =========================
+   SURAH CARD
+========================= */
+
+.surah-card {
+    background-color: var(--white);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 22px;
+    display: flex;
+    align-items: center;
+    gap: 18px;
+    box-shadow: var(--shadow);
+    cursor: pointer;
+    transition: 0.3s ease;
+}
+
+.surah-card:hover {
+    transform: translateY(-4px);
+    border-color: var(--secondary);
+}
+
+
+/* Numéro */
+
+.surah-number {
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+    background-color: #edf4f0;
+    color: var(--primary);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 800;
+    flex-shrink: 0;
+}
+
+
+/* Nom */
+
+.surah-info {
+    flex: 1;
+}
+
+.surah-name {
+    color: var(--primary);
+    font-size: 20px;
+    font-weight: 700;
+}
+
+.surah-english {
+    color: var(--text-light);
+    font-size: 13px;
+}
+
+
+/* Responsive */
+
+@media (max-width: 850px) {
+
+    .surahs-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+}
+
+@media (max-width: 550px) {
+
+    .quran-hero {
+        padding: 60px 15px;
+    }
+
+    .quran-hero h1 {
+        font-size: 38px;
+    }
+
+    .surahs-grid {
+        grid-template-columns: 1fr;
+    }
+
+}
+/* =========================
+   LOADING
+========================= */
+
+.loading {
+    grid-column: 1 / -1;
+    text-align: center;
+    color: var(--text-light);
+    font-size: 18px;
+    padding: 40px;
+}

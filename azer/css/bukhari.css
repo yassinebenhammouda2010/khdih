@@ -1,0 +1,223 @@
+/* =========================
+   HERO
+========================= */
+
+.bukhari-hero {
+    padding: 80px 20px;
+
+    text-align: center;
+
+    background:
+        linear-gradient(
+            135deg,
+            var(--primary),
+            #173f32
+        );
+
+    color: var(--white);
+}
+
+.bukhari-badge {
+    display: inline-block;
+
+    padding: 8px 14px;
+
+    margin-bottom: 15px;
+
+    background-color: rgba(255, 255, 255, 0.1);
+
+    border-radius: 20px;
+
+    color: #dce8e2;
+
+    font-size: 14px;
+}
+
+.bukhari-hero h1 {
+    font-size: 48px;
+    margin-bottom: 12px;
+}
+
+.bukhari-hero p {
+    color: #dce8e2;
+    font-size: 18px;
+}
+
+
+/* =========================
+   SECTION
+========================= */
+
+.bukhari-section {
+    padding: 60px 0 80px;
+    background-color: var(--background);
+}
+
+
+/* =========================
+   SEARCH
+========================= */
+
+.bukhari-search {
+    max-width: 650px;
+    margin: 0 auto 45px;
+}
+
+.bukhari-search input {
+    width: 100%;
+
+    padding: 15px 20px;
+
+    border: 1px solid var(--border);
+    border-radius: 14px;
+
+    background-color: var(--white);
+
+    color: var(--text);
+
+    font-family: inherit;
+    font-size: 16px;
+
+    outline: none;
+}
+
+.bukhari-search input:focus {
+    border-color: var(--primary);
+}
+
+
+/* =========================
+   HEADING
+========================= */
+
+.bukhari-heading {
+    text-align: center;
+    margin-bottom: 35px;
+}
+
+.bukhari-heading span {
+    color: var(--primary);
+    font-weight: 700;
+}
+
+.bukhari-heading h2 {
+    margin: 8px 0;
+    font-size: 30px;
+}
+
+.bukhari-heading p {
+    color: var(--text-light);
+}
+
+
+/* =========================
+   GRID
+========================= */
+
+.bukhari-grid {
+    display: grid;
+
+    grid-template-columns:
+        repeat(3, 1fr);
+
+    gap: 18px;
+}
+
+
+/* =========================
+   CARD
+========================= */
+
+.bukhari-card {
+    display: flex;
+
+    align-items: center;
+
+    gap: 16px;
+
+    padding: 24px;
+
+    background-color: var(--white);
+
+    border: 1px solid var(--border);
+
+    border-radius: 16px;
+
+    box-shadow: var(--shadow);
+
+    transition: 0.3s ease;
+}
+
+.bukhari-card:hover {
+    transform: translateY(-4px);
+
+    border-color: var(--secondary);
+}
+
+.book-number {
+    width: 46px;
+    height: 46px;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    flex-shrink: 0;
+
+    border-radius: 50%;
+
+    background-color: #edf4f0;
+
+    color: var(--primary);
+
+    font-weight: 800;
+}
+
+.bukhari-card h3 {
+    color: var(--primary);
+
+    font-size: 18px;
+
+    margin-bottom: 5px;
+}
+
+.bukhari-card p {
+    color: var(--text-light);
+
+    font-size: 13px;
+}
+
+
+/* =========================
+   RESPONSIVE
+========================= */
+
+@media (max-width: 850px) {
+
+    .bukhari-grid {
+        grid-template-columns:
+            repeat(2, 1fr);
+    }
+
+}
+
+@media (max-width: 550px) {
+
+    .bukhari-hero {
+        padding: 60px 15px;
+    }
+
+    .bukhari-hero h1 {
+        font-size: 36px;
+    }
+
+    .bukhari-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .bukhari-card {
+        padding: 20px;
+    }
+
+}

@@ -1,0 +1,909 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Kihdih | مسابقة</title>
+
+    <link rel="stylesheet" href="css/style.css">
+
+    <style>
+
+        .comp-hero {
+            text-align: center;
+            padding: 40px 20px 20px;
+        }
+
+        .comp-container {
+            max-width: 650px;
+            margin: 0 auto;
+            padding: 0 15px 60px;
+        }
+
+        /* -------- Écran d'installation -------- */
+
+        .comp-card {
+            background: #fff;
+            border: 1px solid #e2e2e2;
+            border-radius: 14px;
+            padding: 25px;
+            margin-bottom: 20px;
+        }
+
+        .comp-add-row {
+            display: flex;
+            gap: 10px;
+        }
+
+        .comp-add-row input {
+            flex: 1;
+            padding: 12px 14px;
+            border-radius: 8px;
+            border: 1px solid #ddd;
+            font-family: inherit;
+            font-size: 1rem;
+        }
+
+        .comp-add-row button {
+            padding: 12px 20px;
+            border-radius: 8px;
+            border: none;
+            background: #2e7d32;
+            color: #fff;
+            font-family: inherit;
+            cursor: pointer;
+        }
+
+        .comp-players {
+            list-style: none;
+            padding: 0;
+            margin: 18px 0 0;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+
+        .comp-players li {
+            background: #f3f7f3;
+            border-radius: 20px;
+            padding: 6px 14px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 0.9rem;
+        }
+
+        .comp-players li button {
+            background: none;
+            border: none;
+            color: #c0392b;
+            cursor: pointer;
+            font-size: 1rem;
+            line-height: 1;
+        }
+
+        .comp-settings {
+            margin-top: 18px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 0.9rem;
+            flex-wrap: wrap;
+        }
+
+        .comp-settings select {
+            padding: 6px 10px;
+            border-radius: 6px;
+            border: 1px solid #ddd;
+            font-family: inherit;
+        }
+
+        .comp-difficulty-note {
+            background: #f3f7f3;
+            border-radius: 10px;
+            padding: 12px 16px;
+            font-size: 0.85rem;
+            color: #555;
+            margin-top: 16px;
+            line-height: 1.8;
+        }
+
+        .comp-start-btn {
+            display: block;
+            width: 100%;
+            margin-top: 22px;
+            padding: 14px;
+            border-radius: 10px;
+            border: none;
+            background: #2e7d32;
+            color: #fff;
+            font-family: inherit;
+            font-size: 1.05rem;
+            cursor: pointer;
+        }
+
+        .comp-start-btn:disabled {
+            background: #bbb;
+            cursor: not-allowed;
+        }
+
+        .comp-hint {
+            font-size: 0.85rem;
+            color: #888;
+            margin-top: 10px;
+        }
+
+        /* -------- Écran de jeu -------- */
+
+        .comp-progress {
+            text-align: center;
+            font-size: 0.9rem;
+            color: #777;
+            margin-bottom: 10px;
+        }
+
+        .comp-turn {
+            text-align: center;
+            background: #2e7d32;
+            color: #fff;
+            border-radius: 12px;
+            padding: 14px;
+            margin-bottom: 14px;
+            font-size: 1.2rem;
+            font-weight: bold;
+        }
+
+        .comp-badges {
+            display: flex;
+            justify-content: center;
+            gap: 8px;
+            margin-bottom: 18px;
+            flex-wrap: wrap;
+        }
+
+        .comp-badge {
+            font-size: 0.8rem;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-weight: bold;
+        }
+
+        .badge-easy { background: #e8f5e9; color: #2e7d32; }
+        .badge-medium { background: #fff8e1; color: #8a6d00; }
+        .badge-hard { background: #fdecea; color: #c0392b; }
+        .badge-very_hard { background: #efe1fb; color: #6a1b9a; }
+        .badge-type { background: #eef2f7; color: #34495e; }
+
+        .comp-question {
+            font-size: 1.2rem;
+            line-height: 2;
+            margin-bottom: 20px;
+            text-align: center;
+            white-space: pre-line;
+        }
+
+        .comp-ayah-text {
+            display: block;
+            font-size: 1.4rem;
+            margin-top: 8px;
+            color: #2e7d32;
+            font-weight: bold;
+        }
+
+        .comp-options {
+            display: grid;
+            gap: 12px;
+        }
+
+        .comp-option {
+            padding: 14px 18px;
+            border-radius: 10px;
+            border: 2px solid #e2e2e2;
+            background: #fff;
+            font-family: inherit;
+            font-size: 1rem;
+            cursor: pointer;
+            text-align: right;
+        }
+
+        .comp-option:hover:not(:disabled) {
+            border-color: #2e7d32;
+        }
+
+        .comp-option.correct {
+            background: #e8f5e9;
+            border-color: #2e7d32;
+            color: #1b5e20;
+            font-weight: bold;
+        }
+
+        .comp-option.wrong {
+            background: #fdecea;
+            border-color: #c0392b;
+            color: #922b21;
+        }
+
+        .comp-option:disabled {
+            cursor: default;
+        }
+
+        .comp-next-btn {
+            display: block;
+            width: 100%;
+            margin-top: 20px;
+            padding: 14px;
+            border-radius: 10px;
+            border: none;
+            background: #2e7d32;
+            color: #fff;
+            font-family: inherit;
+            font-size: 1.05rem;
+            cursor: pointer;
+        }
+
+        /* -------- Écran des résultats -------- */
+
+        .comp-leaderboard {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .comp-leaderboard li {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 14px 18px;
+            border-radius: 10px;
+            background: #f9f9f9;
+            margin-bottom: 10px;
+            font-size: 1.05rem;
+        }
+
+        .comp-leaderboard li:first-child {
+            background: #fff8e1;
+            border: 1px solid #f1c40f;
+        }
+
+        .comp-restart-btn {
+            display: block;
+            width: 100%;
+            margin-top: 20px;
+            padding: 14px;
+            border-radius: 10px;
+            border: none;
+            background: #2e7d32;
+            color: #fff;
+            font-family: inherit;
+            font-size: 1.05rem;
+            cursor: pointer;
+        }
+
+        .hidden {
+            display: none !important;
+        }
+
+    </style>
+</head>
+
+<body>
+
+    <!-- ================= HEADER ================= -->
+
+    <header class="header">
+
+        <div class="container header-content">
+
+            <a href="index.html" class="logo">
+                Kihdih
+            </a>
+
+            <nav class="navbar" id="navbar">
+
+                <a href="index.html">
+                    الرئيسية
+                </a>
+
+                <a href="quran.html">
+                    القرآن الكريم
+                </a>
+
+                <a href="bukhari.html">
+                    صحيح البخاري
+                </a>
+
+                <a href="adhkar.html">
+                    الأذكار
+                </a>
+
+                <a href="prayer.html">
+                    الصلاة
+                </a>
+
+                <a href="aya.html">
+                    آية لك
+                </a>
+
+                <a href="competition.html" class="active">
+                    🏆 مسابقة
+                </a>
+
+            </nav>
+
+            <a href="quran.html" class="header-button">
+                ابدأ القراءة
+            </a>
+
+            <button
+                class="menu-toggle"
+                id="menu-toggle"
+                aria-label="فتح القائمة"
+                aria-expanded="false"
+            >
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+
+        </div>
+
+    </header>
+
+
+    <main>
+
+        <section class="comp-hero">
+
+            <h1>🏆 مسابقة Kihdih</h1>
+
+            <p>اختبر معلوماتك الإسلامية مع أصدقائك — الأسئلة تزداد صعوبة كلما تقدمت المسابقة</p>
+
+        </section>
+
+        <div class="comp-container">
+
+            <!-- ============ 1) شاشة إعداد المشاركين ============ -->
+
+            <div id="setup-screen" class="comp-card">
+
+                <h2>👥 أضف أسماء المشاركين</h2>
+
+                <div class="comp-add-row">
+
+                    <input
+                        type="text"
+                        id="player-name-input"
+                        placeholder="اكتب اسم المشارك ثم اضغط إضافة"
+                        maxlength="20"
+                    >
+
+                    <button id="add-player-btn">إضافة</button>
+
+                </div>
+
+                <ul id="players-list" class="comp-players"></ul>
+
+                <div class="comp-settings">
+
+                    <label for="rounds-select">عدد الأسئلة لكل مشارك:</label>
+
+                    <select id="rounds-select">
+                        <option value="4">4</option>
+                        <option value="8" selected>8</option>
+                        <option value="12">12</option>
+                        <option value="16">16</option>
+                    </select>
+
+                </div>
+
+                <div class="comp-difficulty-note">
+                    📈 <strong>المستوى يتصاعد تلقائيًا:</strong> تبدأ الأسئلة سهلة، ثم متوسطة، ثم صعبة، ثم صعبة جدًا كلما تقدمت الأدوار.
+                    <br>
+                    🎲 <strong>أنواع الأسئلة:</strong> ثقافة عامة، صح أو خطأ، خمّن السورة من الآية، وأكمل الآية.
+                </div>
+
+                <button id="start-btn" class="comp-start-btn" disabled>
+                    ابدأ المسابقة
+                </button>
+
+                <p class="comp-hint">أضف مشاركًا واحدًا على الأقل لبدء المسابقة</p>
+
+            </div>
+
+
+            <!-- ============ 2) شاشة اللعب ============ -->
+
+            <div id="game-screen" class="comp-card hidden">
+
+                <p id="progress-label" class="comp-progress"></p>
+
+                <div id="turn-label" class="comp-turn"></div>
+
+                <div id="badges-row" class="comp-badges"></div>
+
+                <p id="question-label" class="comp-question"></p>
+
+                <div id="options-container" class="comp-options"></div>
+
+                <button id="next-btn" class="comp-next-btn hidden">
+                    السؤال التالي ←
+                </button>
+
+            </div>
+
+
+            <!-- ============ 3) شاشة النتائج ============ -->
+
+            <div id="results-screen" class="comp-card hidden">
+
+                <h2>🏁 نتائج المسابقة</h2>
+
+                <ul id="leaderboard-list" class="comp-leaderboard"></ul>
+
+                <button id="restart-btn" class="comp-restart-btn">
+                    مسابقة جديدة
+                </button>
+
+            </div>
+
+        </div>
+
+    </main>
+
+
+    <!-- ================= FOOTER ================= -->
+
+    <footer class="footer">
+
+        <div class="container">
+
+            <p>© 2026 Kihdih - موقع إسلامي</p>
+
+        </div>
+
+    </footer>
+
+
+    <script>
+
+        // ==================================================================
+        // بنك الأسئلة — 4 مستويات صعوبة × 4 أنواع من الأسئلة
+        // levels: easy | medium | hard | very_hard
+        // types:  mcq | true_false | ayah_surah | complete_ayah
+        // ==================================================================
+        const QUESTION_BANK = [
+
+            // ---------------------- سهل (Easy) ----------------------
+            { level: "easy", type: "mcq", q: "كم عدد أركان الإسلام؟", options: ["3", "4", "5", "6"], correct: 2 },
+            { level: "easy", type: "mcq", q: "كم عدد أركان الإيمان؟", options: ["4", "5", "6", "7"], correct: 2 },
+            { level: "easy", type: "mcq", q: "من هو خاتم الأنبياء والمرسلين؟", options: ["عيسى عليه السلام", "موسى عليه السلام", "محمد ﷺ", "إبراهيم عليه السلام"], correct: 2 },
+            { level: "easy", type: "mcq", q: "في أي شهر هجري يصوم المسلمون؟", options: ["شعبان", "رمضان", "شوال", "رجب"], correct: 1 },
+            { level: "easy", type: "mcq", q: "كم عدد الصلوات المفروضة في اليوم والليلة؟", options: ["3", "4", "5", "6"], correct: 2 },
+            { level: "easy", type: "true_false", q: "القرآن الكريم يتكون من 114 سورة", correct: true },
+            { level: "easy", type: "true_false", q: "الحج ركن من أركان الإسلام", correct: true },
+            { level: "easy", type: "mcq", q: "ما اسم الملَك الموكل بالوحي؟", options: ["ميكائيل", "إسرافيل", "جبريل", "مالك"], correct: 2 },
+            { level: "easy", type: "mcq", q: "في أي مدينة وُلد النبي محمد ﷺ؟", options: ["المدينة المنورة", "مكة المكرمة", "الطائف", "القدس"], correct: 1 },
+            { level: "easy", type: "mcq", q: "من هو أول الخلفاء الراشدين؟", options: ["عمر بن الخطاب", "أبو بكر الصديق", "عثمان بن عفان", "علي بن أبي طالب"], correct: 1 },
+            { level: "easy", type: "true_false", q: "عدد الخلفاء الراشدين أربعة", correct: true },
+            { level: "easy", type: "mcq", q: "ما هو الركن الأول من أركان الإسلام؟", options: ["الصلاة", "الشهادتان", "الزكاة", "الصوم"], correct: 1 },
+            { level: "easy", type: "mcq", q: "ما اسم أول سورة في ترتيب المصحف؟", options: ["البقرة", "الفاتحة", "آل عمران", "الناس"], correct: 1 },
+            { level: "easy", type: "true_false", q: "الأذان يُقال قبل كل صلاة مفروضة", correct: true },
+            { level: "easy", type: "mcq", q: "ما هو اليوم الذي يُصلَّى فيه صلاة الجمعة؟", options: ["الخميس", "الجمعة", "السبت", "الأحد"], correct: 1 },
+            { level: "easy", type: "mcq", q: "ما هي القبلة التي يتجه إليها المسلمون في صلاتهم؟", options: ["الكعبة المشرفة", "المسجد الأقصى", "الحرم النبوي", "جبل أُحد"], correct: 0 },
+            { level: "easy", type: "mcq", q: "كم عدد ركعات صلاة الفجر؟", options: ["2", "3", "4", "5"], correct: 0 },
+            { level: "easy", type: "mcq", q: "إلى أي مدينة هاجر النبي ﷺ من مكة؟", options: ["الطائف", "دمشق", "المدينة المنورة", "بغداد"], correct: 2 },
+            { level: "easy", type: "mcq", q: "في أي شهر هجري يقع الحج؟", options: ["رمضان", "شوال", "ذو الحجة", "محرم"], correct: 2 },
+            { level: "easy", type: "mcq", q: "كم عدد الأشهر في السنة الهجرية؟", options: ["10", "11", "12", "13"], correct: 2 },
+            { level: "easy", type: "mcq", q: "ما اسم العيد الذي يأتي بعد شهر رمضان؟", options: ["عيد الفطر", "عيد الأضحى", "المولد النبوي", "عاشوراء"], correct: 0 },
+            { level: "easy", type: "true_false", q: "الوضوء شرط لصحة الصلاة", correct: true },
+            { level: "easy", type: "mcq", q: "من الذي بنى الكعبة المشرفة مع ابنه إسماعيل عليهما السلام؟", options: ["نوح عليه السلام", "إبراهيم عليه السلام", "آدم عليه السلام", "لوط عليه السلام"], correct: 1 },
+            { level: "easy", type: "mcq", q: "ما اسم الكتاب المقدس عند المسلمين؟", options: ["التوراة", "الإنجيل", "القرآن الكريم", "الزبور"], correct: 2 },
+            { level: "easy", type: "true_false", q: "يبدأ اليوم في التقويم الهجري بعد غروب الشمس", correct: true },
+            { level: "easy", type: "mcq", q: "ما اسم صلاة الجماعة الأسبوعية عند المسلمين؟", options: ["صلاة الجمعة", "صلاة العيد", "صلاة التراويح", "صلاة الاستسقاء"], correct: 0 },
+            { level: "easy", type: "true_false", q: "الزكاة ركن من أركان الإسلام", correct: true },
+            { level: "easy", type: "mcq", q: "ما هو أول ما يُدعى الناس إليه في الإسلام؟", options: ["الصلاة", "الشهادتان", "الحج", "الصيام"], correct: 1 },
+            { level: "easy", type: "mcq", q: "كم عدد ركعات صلاة المغرب؟", options: ["2", "3", "4", "5"], correct: 1 },
+
+            // ---------------------- متوسط (Medium) ----------------------
+            { level: "medium", type: "mcq", q: "ما هي أطول سورة في القرآن الكريم؟", options: ["آل عمران", "البقرة", "النساء", "المائدة"], correct: 1 },
+            { level: "medium", type: "mcq", q: "ما هي أقصر سورة في القرآن الكريم؟", options: ["الإخلاص", "الكوثر", "العصر", "الناس"], correct: 1 },
+            { level: "medium", type: "ayah_surah", q: "قُلْ هُوَ اللَّهُ أَحَدٌ", options: ["الإخلاص", "الفلق", "الناس", "الكوثر"], correct: 0 },
+            { level: "medium", type: "ayah_surah", q: "إِنَّا أَعْطَيْنَاكَ الْكَوْثَرَ", options: ["الكوثر", "الفتح", "النصر", "الضحى"], correct: 0 },
+            { level: "medium", type: "mcq", q: "من هو الصحابي الملقب بـ«سيف الله المسلول»؟", options: ["خالد بن الوليد", "سعد بن أبي وقاص", "الزبير بن العوام", "بلال بن رباح"], correct: 0 },
+            { level: "medium", type: "mcq", q: "من هي أول من آمنت بالنبي ﷺ من النساء؟", options: ["عائشة رضي الله عنها", "خديجة رضي الله عنها", "حفصة رضي الله عنها", "فاطمة رضي الله عنها"], correct: 1 },
+            { level: "medium", type: "mcq", q: "ما اسم الغزوة التي وقعت في السنة الثانية للهجرة وانتصر فيها المسلمون رغم قلة عددهم؟", options: ["أحد", "الخندق", "بدر", "حنين"], correct: 2 },
+            { level: "medium", type: "complete_ayah", q: "أكمل الآية:\nقُلْ أَعُوذُ بِرَبِّ ___", options: ["الْفَلَقِ", "النَّاسِ", "الْعَالَمِينَ", "السَّمَاءِ"], correct: 0 },
+            { level: "medium", type: "mcq", q: "كم عدد أجزاء القرآن الكريم؟", options: ["20", "25", "30", "35"], correct: 2 },
+            { level: "medium", type: "mcq", q: "ما اسم كتاب الحديث الذي ألّفه الإمام البخاري؟", options: ["سنن أبي داود", "صحيح مسلم", "صحيح البخاري", "الموطأ"], correct: 2 },
+            { level: "medium", type: "true_false", q: "سورة الفاتحة تسمى أيضًا «أم الكتاب»", correct: true },
+            { level: "medium", type: "ayah_surah", q: "وَالْعَصْرِ إِنَّ الْإِنسَانَ لَفِي خُسْرٍ", options: ["العصر", "الفجر", "الليل", "الضحى"], correct: 0 },
+            { level: "medium", type: "mcq", q: "من أول من أسلم من الرجال الأحرار البالغين؟", options: ["عمر بن الخطاب", "أبو بكر الصديق", "علي بن أبي طالب", "عثمان بن عفان"], correct: 1 },
+            { level: "medium", type: "mcq", q: "في أي غار نزل أول الوحي على النبي ﷺ؟", options: ["غار ثور", "غار حراء", "غار العلم", "لا يوجد غار محدد"], correct: 1 },
+            { level: "medium", type: "true_false", q: "صيام رمضان فُرض في السنة الثانية للهجرة", correct: true },
+            { level: "medium", type: "ayah_surah", q: "إِذَا زُلْزِلَتِ الْأَرْضُ زِلْزَالَهَا", options: ["الزلزلة", "القارعة", "التكاثر", "العاديات"], correct: 0 },
+            { level: "medium", type: "mcq", q: "من هو الصحابي الذي كان يكتب أغلب الوحي للنبي ﷺ؟", options: ["أبو هريرة", "زيد بن ثابت", "بلال بن رباح", "عبد الله بن مسعود"], correct: 1 },
+            { level: "medium", type: "ayah_surah", q: "الرَّحْمَٰنُ عَلَّمَ الْقُرْآنَ", options: ["الرحمن", "الرعد", "يس", "ق"], correct: 0 },
+            { level: "medium", type: "mcq", q: "ما هي السورة التي تُسمى «قلب القرآن»؟", options: ["يس", "الرحمن", "الملك", "الواقعة"], correct: 0 },
+            { level: "medium", type: "true_false", q: "سورة يوسف سُميت بهذا الاسم لأنها تحكي قصة النبي يوسف عليه السلام", correct: true },
+            { level: "medium", type: "mcq", q: "كم عدد أبواب الجنة؟", options: ["6", "7", "8", "9"], correct: 2 },
+            { level: "medium", type: "mcq", q: "كم عدد أبواب النار؟", options: ["6", "7", "8", "9"], correct: 1 },
+            { level: "medium", type: "mcq", q: "من هو الصحابي الذي لُقّب بـ«أمين هذه الأمة»؟", options: ["أبو عبيدة بن الجراح", "سعد بن أبي وقاص", "طلحة بن عبيد الله", "الزبير بن العوام"], correct: 0 },
+            { level: "medium", type: "ayah_surah", q: "وَالضُّحَىٰ وَاللَّيْلِ إِذَا سَجَىٰ", options: ["الضحى", "الليل", "الشمس", "الفجر"], correct: 0 },
+            { level: "medium", type: "mcq", q: "في أي سنة هجرية وقعت غزوة أُحد؟", options: ["الأولى", "الثانية", "الثالثة", "الرابعة"], correct: 2 },
+            { level: "medium", type: "true_false", q: "غزوة بدر كانت أول معركة كبرى بين المسلمين والمشركين", correct: true },
+
+            // ---------------------- صعب (Hard) ----------------------
+            { level: "hard", type: "ayah_surah", q: "لَقَدْ خَلَقْنَا الْإِنسَانَ فِي أَحْسَنِ تَقْوِيمٍ", options: ["التين", "الشمس", "البلد", "الفجر"], correct: 0 },
+            { level: "hard", type: "ayah_surah", q: "إِذَا جَاءَ نَصْرُ اللَّهِ وَالْفَتْحُ", options: ["النصر", "الفتح", "الصف", "الروم"], correct: 0 },
+            { level: "hard", type: "mcq", q: "من هو الصحابي الذي كُلّف بجمع القرآن الكريم في مصحف واحد في عهد أبي بكر؟", options: ["زيد بن ثابت", "أُبيّ بن كعب", "معاذ بن جبل", "عبد الله بن مسعود"], correct: 0 },
+            { level: "hard", type: "mcq", q: "في عهد أي خليفة تم توحيد المصاحف على قراءة واحدة؟", options: ["أبو بكر", "عمر بن الخطاب", "عثمان بن عفان", "علي بن أبي طالب"], correct: 2 },
+            { level: "hard", type: "complete_ayah", q: "أكمل الآية:\nوَقُل رَّبِّ زِدْنِي ___", options: ["عِلْمًا", "هُدًى", "رَحْمَةً", "صَبْرًا"], correct: 0 },
+            { level: "hard", type: "mcq", q: "من هو مؤذن النبي ﷺ الشهير؟", options: ["بلال بن رباح", "صهيب الرومي", "سلمان الفارسي", "عمار بن ياسر"], correct: 0 },
+            { level: "hard", type: "ayah_surah", q: "أَلَمْ نَشْرَحْ لَكَ صَدْرَكَ", options: ["الشرح", "الضحى", "العلق", "التين"], correct: 0 },
+            { level: "hard", type: "mcq", q: "ما اسم الغار الذي توارى فيه النبي ﷺ وأبو بكر أثناء الهجرة؟", options: ["غار حراء", "غار ثور", "غار النور", "غار الطائف"], correct: 1 },
+            { level: "hard", type: "mcq", q: "من هو الصحابي الذي فتح مصر في عهد عمر بن الخطاب؟", options: ["عمرو بن العاص", "خالد بن الوليد", "سعد بن أبي وقاص", "أبو عبيدة بن الجراح"], correct: 0 },
+            { level: "hard", type: "mcq", q: "من هو قائد جيش المسلمين في معركة القادسية؟", options: ["خالد بن الوليد", "سعد بن أبي وقاص", "عمرو بن العاص", "طارق بن زياد"], correct: 1 },
+            { level: "hard", type: "mcq", q: "من هو الصحابي الذي قاد فتح الأندلس؟", options: ["طارق بن زياد", "عقبة بن نافع", "موسى بن نصير", "يزيد بن معاوية"], correct: 0 },
+            { level: "hard", type: "true_false", q: "غزوة الخندق تسمى أيضًا غزوة الأحزاب", correct: true },
+            { level: "hard", type: "ayah_surah", q: "أَرَأَيْتَ الَّذِي يُكَذِّبُ بِالدِّينِ", options: ["الماعون", "قريش", "الفيل", "الهمزة"], correct: 0 },
+            { level: "hard", type: "mcq", q: "كم كان عمر النبي ﷺ تقريبًا عند وفاته؟", options: ["60 سنة", "63 سنة", "65 سنة", "70 سنة"], correct: 1 },
+            { level: "hard", type: "ayah_surah", q: "لِإِيلَافِ قُرَيْشٍ", options: ["قريش", "الفيل", "الهمزة", "التكاثر"], correct: 0 },
+            { level: "hard", type: "mcq", q: "من هو مؤلف كتاب «صحيح مسلم»؟", options: ["مسلم بن الحجاج", "البخاري", "الترمذي", "أبو داود"], correct: 0 },
+            { level: "hard", type: "ayah_surah", q: "وَالْفَجْرِ وَلَيَالٍ عَشْرٍ", options: ["الفجر", "الليل", "الشمس", "الضحى"], correct: 0 },
+            { level: "hard", type: "mcq", q: "كم عدد بنات النبي ﷺ؟", options: ["2", "3", "4", "5"], correct: 2 },
+            { level: "hard", type: "mcq", q: "من هو الصحابي الذي استُشهد في غزوة أُحد ولُقّب بـ«أسد الله»؟", options: ["حمزة بن عبد المطلب", "مصعب بن عمير", "سعد بن معاذ", "طلحة بن عبيد الله"], correct: 0 },
+            { level: "hard", type: "true_false", q: "سورة التوبة هي السورة الوحيدة في القرآن التي لا تبدأ بالبسملة", correct: true },
+            { level: "hard", type: "mcq", q: "ما اسم المعاهدة التي وقّعها النبي ﷺ مع قريش سنة 6 هـ؟", options: ["صلح الحديبية", "ميثاق المدينة", "معاهدة العقبة", "صلح الطائف"], correct: 0 },
+            { level: "hard", type: "ayah_surah", q: "وَالسَّمَاءِ ذَاتِ الْبُرُوجِ", options: ["البروج", "الطارق", "الانشقاق", "الانفطار"], correct: 0 },
+            { level: "hard", type: "mcq", q: "من هو الصحابي الذي فُتحت على يديه بلاد فارس (المدائن)؟", options: ["سعد بن أبي وقاص", "خالد بن الوليد", "عمرو بن العاص", "أبو عبيدة بن الجراح"], correct: 0 },
+
+            // ---------------------- صعب جدًا (Very hard) ----------------------
+            { level: "very_hard", type: "mcq", q: "ما يسمى الحديث الذي اتفق البخاري ومسلم على روايته؟", options: ["الحديث المتواتر", "الحديث المتفق عليه", "الحديث الحسن", "الحديث الشاذ"], correct: 1 },
+            { level: "very_hard", type: "mcq", q: "تقريبًا، كم عدد أحاديث صحيح البخاري (بالتكرار)؟", options: ["حوالي 1000", "حوالي 3000", "أكثر من 7000", "أكثر من 15000"], correct: 2 },
+            { level: "very_hard", type: "mcq", q: "من هو مؤلف كتاب «سنن الترمذي»؟", options: ["الترمذي", "النسائي", "ابن ماجه", "أبو داود"], correct: 0 },
+            { level: "very_hard", type: "mcq", q: "كم عدد كتب الحديث المعروفة باسم «الكتب الستة»؟", options: ["4", "5", "6", "7"], correct: 2 },
+            { level: "very_hard", type: "complete_ayah", q: "أكمل الآية:\nوَمَا خَلَقْتُ الْجِنَّ وَالْإِنسَ إِلَّا ___", options: ["لِيَعْبُدُونِ", "لِيَتَفَكَّرُوا", "لِيَتَعَارَفُوا", "لِيَتَعَلَّمُوا"], correct: 0 },
+            { level: "very_hard", type: "ayah_surah", q: "فَاذْكُرُونِي أَذْكُرْكُمْ", options: ["البقرة", "آل عمران", "النساء", "الأعراف"], correct: 0 },
+            { level: "very_hard", type: "mcq", q: "في أي سنة هجرية وقعت غزوة الخندق (الأحزاب)؟", options: ["السنة الثانية", "السنة الثالثة", "السنة الخامسة", "السنة السابعة"], correct: 2 },
+            { level: "very_hard", type: "mcq", q: "في أي سنة هجرية تم فتح مكة المكرمة؟", options: ["السنة الثامنة", "السنة السادسة", "السنة العاشرة", "السنة الأولى"], correct: 0 },
+            { level: "very_hard", type: "mcq", q: "من هي أول شهيدة في الإسلام؟", options: ["سمية بنت خباط", "أم عمارة", "أسماء بنت أبي بكر", "الرميصاء"], correct: 0 },
+            { level: "very_hard", type: "mcq", q: "من هو خاتم الخلفاء الراشدين؟", options: ["عثمان بن عفان", "علي بن أبي طالب", "عمر بن الخطاب", "أبو بكر الصديق"], correct: 1 },
+            { level: "very_hard", type: "true_false", q: "صحيح مسلم يُعتبر عند جمهور العلماء أصح كتاب بعد صحيح البخاري", correct: true },
+            { level: "very_hard", type: "ayah_surah", q: "وَبَشِّرِ الصَّابِرِينَ", options: ["البقرة", "آل عمران", "يوسف", "الرعد"], correct: 0 },
+            { level: "very_hard", type: "mcq", q: "كم عدد آيات سورة البقرة؟", options: ["200", "250", "286", "300"], correct: 2 },
+            { level: "very_hard", type: "mcq", q: "من هو مؤلف كتاب «سنن أبي داود»؟", options: ["أبو داود السجستاني", "النسائي", "الترمذي", "ابن ماجه"], correct: 0 },
+            { level: "very_hard", type: "mcq", q: "من هو مؤلف كتاب «سنن النسائي»؟", options: ["الترمذي", "النسائي", "أبو داود", "ابن ماجه"], correct: 1 },
+            { level: "very_hard", type: "mcq", q: "من هو مؤلف كتاب «سنن ابن ماجه»؟", options: ["أبو داود", "الترمذي", "النسائي", "ابن ماجه"], correct: 3 },
+            { level: "very_hard", type: "ayah_surah", q: "وَالسَّمَاءِ وَالطَّارِقِ", options: ["الطارق", "البروج", "الانشقاق", "الليل"], correct: 0 },
+            { level: "very_hard", type: "mcq", q: "في أي غزوة استُشهد سبعون من قرّاء الصحابة غدرًا؟", options: ["بئر معونة", "أُحد", "الخندق", "حنين"], correct: 0 },
+            { level: "very_hard", type: "mcq", q: "كم عدد أهل الشورى الذين اختارهم عمر بن الخطاب لاختيار الخليفة من بعده؟", options: ["4", "5", "6", "7"], correct: 2 },
+            { level: "very_hard", type: "mcq", q: "ما اسم المعركة التي وقعت بين علي بن أبي طالب ومعاوية بن أبي سفيان؟", options: ["صفين", "الجمل", "النهروان", "كربلاء"], correct: 0 }
+
+        ];
+
+        const LEVELS = ["easy", "medium", "hard", "very_hard"];
+
+        const LEVEL_LABELS = {
+            easy: "🟢 سهل",
+            medium: "🟡 متوسط",
+            hard: "🟠 صعب",
+            very_hard: "🔴 صعب جدًا"
+        };
+
+        const TYPE_LABELS = {
+            mcq: "🧠 ثقافة عامة",
+            true_false: "❓ صح أو خطأ",
+            ayah_surah: "📖 خمّن السورة",
+            complete_ayah: "✍️ أكمل الآية"
+        };
+
+        // ------------------------------------------------------------------
+        // الحالة العامة للمسابقة
+        // ------------------------------------------------------------------
+        let players = [];       // [{ name, score }]
+        let roundsPerPlayer = 8;
+        let turnOrder = [];      // [{ playerIndex, question }]
+        let currentTurnIndex = 0;
+        let usedByLevel = { easy: new Set(), medium: new Set(), hard: new Set(), very_hard: new Set() };
+
+        // ------------------------------------------------------------------
+        // عناصر DOM
+        // ------------------------------------------------------------------
+        const setupScreen = document.getElementById("setup-screen");
+        const gameScreen = document.getElementById("game-screen");
+        const resultsScreen = document.getElementById("results-screen");
+
+        const nameInput = document.getElementById("player-name-input");
+        const addPlayerBtn = document.getElementById("add-player-btn");
+        const playersListEl = document.getElementById("players-list");
+        const roundsSelect = document.getElementById("rounds-select");
+        const startBtn = document.getElementById("start-btn");
+
+        const progressLabel = document.getElementById("progress-label");
+        const turnLabel = document.getElementById("turn-label");
+        const badgesRow = document.getElementById("badges-row");
+        const questionLabel = document.getElementById("question-label");
+        const optionsContainer = document.getElementById("options-container");
+        const nextBtn = document.getElementById("next-btn");
+
+        const leaderboardList = document.getElementById("leaderboard-list");
+        const restartBtn = document.getElementById("restart-btn");
+
+        // ------------------------------------------------------------------
+        // إدارة المشاركين
+        // ------------------------------------------------------------------
+        function renderPlayers() {
+
+            playersListEl.innerHTML = players.map((p, i) => `
+                <li>
+                    ${escapeHtml(p.name)}
+                    <button data-index="${i}" aria-label="حذف">✕</button>
+                </li>
+            `).join("");
+
+            startBtn.disabled = players.length === 0;
+
+        }
+
+        function escapeHtml(str) {
+            return (str || "")
+                .replace(/&/g, "&amp;")
+                .replace(/</g, "&lt;")
+                .replace(/>/g, "&gt;");
+        }
+
+        function addPlayer() {
+
+            const name = nameInput.value.trim();
+
+            if (!name) return;
+
+            if (players.some((p) => p.name === name)) {
+                nameInput.value = "";
+                return;
+            }
+
+            players.push({ name, score: 0 });
+            nameInput.value = "";
+            renderPlayers();
+            nameInput.focus();
+
+        }
+
+        addPlayerBtn.addEventListener("click", addPlayer);
+
+        nameInput.addEventListener("keydown", (e) => {
+            if (e.key === "Enter") {
+                e.preventDefault();
+                addPlayer();
+            }
+        });
+
+        playersListEl.addEventListener("click", (e) => {
+
+            const btn = e.target.closest("button[data-index]");
+            if (!btn) return;
+
+            const idx = parseInt(btn.dataset.index, 10);
+            players.splice(idx, 1);
+            renderPlayers();
+
+        });
+
+        // ------------------------------------------------------------------
+        // اختيار سؤال عشوائي من مستوى معين (بدون تكرار طالما ممكن)
+        // ------------------------------------------------------------------
+        function pickRandomQuestion(level) {
+
+            const poolAll = QUESTION_BANK
+                .map((q, i) => ({ q, i }))
+                .filter(({ q }) => q.level === level);
+
+            const used = usedByLevel[level];
+
+            let available = poolAll.filter(({ i }) => !used.has(i));
+
+            if (available.length === 0) {
+                used.clear();
+                available = poolAll;
+            }
+
+            const chosen = available[Math.floor(Math.random() * available.length)];
+            used.add(chosen.i);
+
+            return chosen.q;
+
+        }
+
+        function levelForRound(round, totalRounds) {
+            const idx = Math.min(LEVELS.length - 1, Math.floor((round * LEVELS.length) / totalRounds));
+            return LEVELS[idx];
+        }
+
+        function buildTurnOrder() {
+
+            turnOrder = [];
+            usedByLevel = { easy: new Set(), medium: new Set(), hard: new Set(), very_hard: new Set() };
+
+            for (let round = 0; round < roundsPerPlayer; round++) {
+
+                const level = levelForRound(round, roundsPerPlayer);
+
+                players.forEach((player, playerIndex) => {
+                    turnOrder.push({
+                        playerIndex,
+                        question: pickRandomQuestion(level)
+                    });
+                });
+
+            }
+
+        }
+
+        // ------------------------------------------------------------------
+        // بدء المسابقة
+        // ------------------------------------------------------------------
+        startBtn.addEventListener("click", () => {
+
+            if (players.length === 0) return;
+
+            roundsPerPlayer = parseInt(roundsSelect.value, 10);
+            players.forEach((p) => (p.score = 0));
+            currentTurnIndex = 0;
+
+            buildTurnOrder();
+
+            setupScreen.classList.add("hidden");
+            resultsScreen.classList.add("hidden");
+            gameScreen.classList.remove("hidden");
+
+            renderTurn();
+
+        });
+
+        // ------------------------------------------------------------------
+        // بناء نص السؤال حسب نوعه
+        // ------------------------------------------------------------------
+        function buildQuestionText(question) {
+
+            if (question.type === "ayah_surah") {
+                return `📖 في أي سورة وردت هذه الآية؟\n<span class="comp-ayah-text">${escapeHtml(question.q)}</span>`;
+            }
+
+            if (question.type === "complete_ayah") {
+                return escapeHtml(question.q);
+            }
+
+            return escapeHtml(question.q);
+
+        }
+
+        function getOptions(question) {
+
+            if (question.type === "true_false") {
+                return ["✅ صحيح", "❌ خطأ"];
+            }
+
+            return question.options;
+
+        }
+
+        function getCorrectIndex(question) {
+
+            if (question.type === "true_false") {
+                return question.correct ? 0 : 1;
+            }
+
+            return question.correct;
+
+        }
+
+        // ------------------------------------------------------------------
+        // عرض دور الحالي
+        // ------------------------------------------------------------------
+        function renderTurn() {
+
+            const turn = turnOrder[currentTurnIndex];
+            const player = players[turn.playerIndex];
+            const question = turn.question;
+
+            progressLabel.textContent = `السؤال ${currentTurnIndex + 1} من ${turnOrder.length}`;
+            turnLabel.textContent = `🎯 دور: ${player.name}`;
+
+            badgesRow.innerHTML = `
+                <span class="comp-badge badge-${question.level}">${LEVEL_LABELS[question.level]}</span>
+                <span class="comp-badge badge-type">${TYPE_LABELS[question.type]}</span>
+            `;
+
+            questionLabel.innerHTML = buildQuestionText(question);
+
+            const options = getOptions(question);
+
+            optionsContainer.innerHTML = options.map((opt, i) => `
+                <button class="comp-option" data-index="${i}">${escapeHtml(opt)}</button>
+            `).join("");
+
+            nextBtn.classList.add("hidden");
+
+        }
+
+        optionsContainer.addEventListener("click", (e) => {
+
+            const btn = e.target.closest(".comp-option");
+            if (!btn) return;
+
+            const turn = turnOrder[currentTurnIndex];
+            const question = turn.question;
+            const correctIndex = getCorrectIndex(question);
+            const chosenIndex = parseInt(btn.dataset.index, 10);
+
+            const allButtons = optionsContainer.querySelectorAll(".comp-option");
+
+            allButtons.forEach((b) => (b.disabled = true));
+
+            allButtons[correctIndex].classList.add("correct");
+
+            if (chosenIndex !== correctIndex) {
+                btn.classList.add("wrong");
+            } else {
+                players[turn.playerIndex].score += 1;
+            }
+
+            nextBtn.classList.remove("hidden");
+
+        });
+
+        nextBtn.addEventListener("click", () => {
+
+            currentTurnIndex++;
+
+            if (currentTurnIndex >= turnOrder.length) {
+                showResults();
+            } else {
+                renderTurn();
+            }
+
+        });
+
+        // ------------------------------------------------------------------
+        // شاشة النتائج
+        // ------------------------------------------------------------------
+        function showResults() {
+
+            gameScreen.classList.add("hidden");
+            resultsScreen.classList.remove("hidden");
+
+            const sorted = [...players].sort((a, b) => b.score - a.score);
+            const medals = ["🥇", "🥈", "🥉"];
+
+            leaderboardList.innerHTML = sorted.map((p, i) => `
+                <li>
+                    <span>${medals[i] || `#${i + 1}`} ${escapeHtml(p.name)}</span>
+                    <span>${p.score} / ${roundsPerPlayer}</span>
+                </li>
+            `).join("");
+
+        }
+
+        restartBtn.addEventListener("click", () => {
+
+            resultsScreen.classList.add("hidden");
+            setupScreen.classList.remove("hidden");
+
+            players = [];
+            renderPlayers();
+
+        });
+
+        // حالة أولية
+        renderPlayers();
+
+    </script>
+
+    <script src="js/menu.js"></script>
+
+</body>
+
+</html>

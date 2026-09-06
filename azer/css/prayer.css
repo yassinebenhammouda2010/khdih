@@ -1,0 +1,193 @@
+/* =========================
+   PRAYER HERO
+========================= */
+
+.prayer-hero {
+    padding: 75px 20px;
+    text-align: center;
+
+    background-color: var(--primary);
+    color: var(--white);
+}
+
+.prayer-hero h1 {
+    font-size: 46px;
+    margin-bottom: 10px;
+}
+
+.prayer-hero p {
+    color: #dce8e2;
+    font-size: 18px;
+}
+
+
+/* =========================
+   PAGE
+========================= */
+
+.prayer-page {
+    padding: 60px 0;
+    background-color: var(--background);
+    min-height: 70vh;
+}
+
+
+/* =========================
+   LOCATION
+========================= */
+
+.prayer-location {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.prayer-location p {
+    color: var(--text-light);
+    margin-top: 10px;
+}
+
+
+/* =========================
+   NEXT PRAYER
+========================= */
+
+.next-prayer {
+    max-width: 650px;
+    margin: 0 auto 30px;
+
+    padding: 35px;
+
+    background-color: var(--primary);
+    color: var(--white);
+
+    border-radius: 20px;
+
+    text-align: center;
+
+    box-shadow: var(--shadow);
+}
+
+.next-prayer p {
+    margin-bottom: 10px;
+    color: #dce8e2;
+}
+
+.next-prayer h2 {
+    font-size: 32px;
+    margin-bottom: 5px;
+}
+
+.next-prayer strong {
+    display: block;
+
+    font-size: 38px;
+
+    color: var(--secondary);
+
+    margin-bottom: 15px;
+}
+
+#prayer-countdown {
+    font-size: 20px;
+    font-weight: 700;
+}
+
+
+/* =========================
+   PRAYER LIST
+========================= */
+
+.prayer-list {
+    max-width: 650px;
+    margin: 0 auto;
+}
+
+.prayer-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    padding: 20px 24px;
+
+    margin-bottom: 12px;
+
+    background-color: var(--white);
+
+    border: 1px solid var(--border);
+    border-radius: 14px;
+
+    box-shadow: var(--shadow);
+
+    transition: 0.3s ease;
+}
+
+.prayer-row:hover {
+    transform: translateY(-2px);
+    border-color: var(--secondary);
+}
+
+.prayer-row span {
+    font-size: 18px;
+    font-weight: 700;
+}
+
+.prayer-row strong {
+    color: var(--primary);
+    font-size: 20px;
+}
+
+
+/* =========================
+   DATE
+========================= */
+
+.prayer-date {
+    max-width: 650px;
+    margin: 30px auto 0;
+
+    text-align: center;
+
+    color: var(--text-light);
+}
+
+.prayer-date span {
+    display: block;
+
+    margin-top: 5px;
+
+    color: var(--primary);
+    font-weight: 700;
+}
+
+
+/* =========================
+   RESPONSIVE
+========================= */
+
+@media (max-width: 600px) {
+
+    .prayer-hero {
+        padding: 55px 15px;
+    }
+
+    .prayer-hero h1 {
+        font-size: 36px;
+    }
+
+    .next-prayer {
+        padding: 28px 20px;
+    }
+
+    .next-prayer h2 {
+        font-size: 28px;
+    }
+
+    .next-prayer strong {
+        font-size: 32px;
+    }
+
+    .prayer-row {
+        padding: 17px;
+    }
+
+}
