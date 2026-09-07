@@ -1,0 +1,547 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Kihdih | عاداتي</title>
+
+    <link rel="stylesheet" href="css/style.css">
+
+    <style>
+
+        .habits-hero {
+            text-align: center;
+            padding: 40px 20px 20px;
+        }
+
+        .habits-container {
+            max-width: 700px;
+            margin: 0 auto;
+            padding: 0 15px 60px;
+        }
+
+        .habits-card {
+            background: #fff;
+            border: 1px solid #e2e2e2;
+            border-radius: 16px;
+            padding: 25px;
+            margin-bottom: 20px;
+        }
+
+        /* -------- تقدم اليوم -------- */
+
+        .habits-progress-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+
+        .habits-progress-row h2 {
+            font-size: 1.1rem;
+        }
+
+        .habits-progress-count {
+            font-weight: bold;
+            color: var(--primary, #174c3b);
+        }
+
+        .habits-progress-bar-bg {
+            width: 100%;
+            height: 12px;
+            background: #eee;
+            border-radius: 20px;
+            overflow: hidden;
+        }
+
+        .habits-progress-bar-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #174c3b, #236b54);
+            border-radius: 20px;
+            transition: width 0.3s ease;
+        }
+
+        /* -------- مجموعات العادات -------- */
+
+        .habits-group-title {
+            font-size: 0.95rem;
+            color: #777;
+            margin: 20px 0 10px;
+        }
+
+        .habits-group-title:first-of-type {
+            margin-top: 5px;
+        }
+
+        .habit-item {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            padding: 14px 16px;
+            border: 2px solid #e2e2e2;
+            border-radius: 12px;
+            margin-bottom: 10px;
+            cursor: pointer;
+            transition: 0.2s ease;
+            user-select: none;
+        }
+
+        .habit-item.checked {
+            background: #e8f5e9;
+            border-color: #2e7d32;
+        }
+
+        .habit-icon {
+            font-size: 1.3rem;
+        }
+
+        .habit-label {
+            flex: 1;
+            font-size: 1.05rem;
+        }
+
+        .habit-check {
+            width: 26px;
+            height: 26px;
+            border-radius: 50%;
+            border: 2px solid #ccc;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.9rem;
+            background: #fff;
+            flex-shrink: 0;
+        }
+
+        .habit-item.checked .habit-check {
+            background: #2e7d32;
+            border-color: #2e7d32;
+            color: #fff;
+        }
+
+        /* -------- السلسلة -------- */
+
+        .streak-row {
+            display: flex;
+            gap: 15px;
+        }
+
+        .streak-box {
+            flex: 1;
+            text-align: center;
+            padding: 18px;
+            border-radius: 12px;
+            background: #f3f7f3;
+        }
+
+        .streak-box strong {
+            display: block;
+            font-size: 2rem;
+            color: #174c3b;
+        }
+
+        .streak-box span {
+            font-size: 0.85rem;
+            color: #777;
+        }
+
+        /* -------- آخر 7 أيام -------- */
+
+        .week-strip {
+            display: flex;
+            justify-content: space-between;
+            gap: 8px;
+            margin-top: 20px;
+        }
+
+        .week-day {
+            flex: 1;
+            text-align: center;
+        }
+
+        .week-day-name {
+            font-size: 0.75rem;
+            color: #999;
+            margin-bottom: 6px;
+        }
+
+        .week-day-circle {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.9rem;
+            background: #eee;
+            color: #999;
+        }
+
+        .week-day-circle.complete {
+            background: #2e7d32;
+            color: #fff;
+        }
+
+        .week-day-circle.partial {
+            background: #fff8e1;
+            color: #8a6d00;
+            border: 2px solid #f1c40f;
+        }
+
+        .week-day-circle.today {
+            box-shadow: 0 0 0 3px #174c3b33;
+        }
+
+        /* -------- الشارات -------- */
+
+        .badges-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 12px;
+        }
+
+        .badge-item {
+            text-align: center;
+            padding: 16px 8px;
+            border-radius: 12px;
+            background: #f9f9f9;
+            filter: grayscale(1);
+            opacity: 0.5;
+        }
+
+        .badge-item.unlocked {
+            background: #fff8e1;
+            border: 1px solid #f1c40f;
+            filter: none;
+            opacity: 1;
+        }
+
+        .badge-icon {
+            font-size: 1.8rem;
+            display: block;
+            margin-bottom: 6px;
+        }
+
+        .badge-label {
+            font-size: 0.75rem;
+            color: #555;
+        }
+
+        .habits-note {
+            font-size: 0.8rem;
+            color: #999;
+            text-align: center;
+            margin-top: 10px;
+        }
+
+    </style>
+</head>
+
+<body>
+
+    <!-- ================= HEADER ================= -->
+
+    <header class="header">
+
+        <div class="container header-content">
+
+            <a href="index.html" class="logo">
+                Kihdih
+            </a>
+
+            <nav class="navbar" id="navbar">
+
+                <a href="index.html">
+                    الرئيسية
+                </a>
+
+                <a href="quran.html">
+                    القرآن الكريم
+                </a>
+
+                <a href="bukhari.html">
+                    صحيح البخاري
+                </a>
+
+                <a href="adhkar.html">
+                    الأذكار
+                </a>
+
+                <a href="prayer.html">
+                    الصلاة
+                </a>
+
+                <a href="aya.html">
+                    آية لك
+                </a>
+
+                <a href="competition.html">
+                    🏆 مسابقة
+                </a>
+
+                <a href="habits.html" class="active">
+                    📿 عاداتي
+                </a>
+
+            </nav>
+
+            <a href="quran.html" class="header-button">
+                ابدأ القراءة
+            </a>
+
+            <button
+                class="menu-toggle"
+                id="menu-toggle"
+                aria-label="فتح القائمة"
+                aria-expanded="false"
+            >
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+
+        </div>
+
+    </header>
+
+
+    <main>
+
+        <section class="habits-hero">
+
+            <h1>📿 عاداتي</h1>
+
+            <p>تابع صلواتك وأذكارك وقراءتك للقرآن يومًا بيوم</p>
+
+        </section>
+
+        <div class="habits-container">
+
+            <!-- ============ تقدم اليوم ============ -->
+
+            <div class="habits-card">
+
+                <div class="habits-progress-row">
+                    <h2>✅ إنجاز اليوم</h2>
+                    <span id="today-count" class="habits-progress-count">0 / 8</span>
+                </div>
+
+                <div class="habits-progress-bar-bg">
+                    <div id="today-progress-bar" class="habits-progress-bar-fill" style="width: 0%;"></div>
+                </div>
+
+                <p class="habits-group-title">🕌 الصلوات</p>
+                <div id="prayer-habits"></div>
+
+                <p class="habits-group-title">🤲 الأذكار</p>
+                <div id="adhkar-habits"></div>
+
+                <p class="habits-group-title">📖 القرآن</p>
+                <div id="quran-habits"></div>
+
+                <div class="week-strip" id="week-strip"></div>
+
+            </div>
+
+
+            <!-- ============ السلسلة ============ -->
+
+            <div class="habits-card">
+
+                <div class="streak-row">
+
+                    <div class="streak-box">
+                        <strong id="current-streak">0</strong>
+                        <span>🔥 السلسلة الحالية</span>
+                    </div>
+
+                    <div class="streak-box">
+                        <strong id="best-streak">0</strong>
+                        <span>🏆 أفضل سلسلة</span>
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- ============ الشارات ============ -->
+
+            <div class="habits-card">
+
+                <h2>🎖️ الشارات</h2>
+                <p class="habits-group-title">تُفتح كل شارة عند بلوغ سلسلة الأيام المطلوبة</p>
+
+                <div id="badges-grid" class="badges-grid"></div>
+
+                <p class="habits-note">
+                    💾 يتم حفظ تقدمك في هذا المتصفح فقط. إن غيّرت الجهاز أو مسحت بيانات التصفح، ستبدأ من جديد.
+                </p>
+
+            </div>
+
+        </div>
+
+    </main>
+
+
+    <!-- ================= FOOTER ================= -->
+
+    <footer class="footer">
+
+        <div class="container">
+
+            <p>© 2026 Kihdih - موقع إسلامي</p>
+
+        </div>
+
+    </footer>
+
+
+    <script src="js/habits.js"></script>
+
+    <script>
+
+        let habitData = kihdihLoadData();
+        const todayKey = kihdihTodayKey();
+
+        if (!habitData[todayKey]) {
+            habitData[todayKey] = {};
+        }
+
+        function toggleHabit(habitId) {
+
+            habitData[todayKey][habitId] = !habitData[todayKey][habitId];
+            kihdihSaveData(habitData);
+
+            renderChecklist();
+            renderProgress();
+            renderStreak();
+            renderBadges();
+            renderWeekStrip();
+
+        }
+
+        function renderGroup(containerId, group) {
+
+            const container = document.getElementById(containerId);
+
+            container.innerHTML = KIHDIH_HABITS
+                .filter((h) => h.group === group)
+                .map((h) => {
+
+                    const checked = habitData[todayKey][h.id] === true;
+
+                    return `
+                        <div class="habit-item ${checked ? "checked" : ""}" data-habit="${h.id}">
+                            <span class="habit-icon">${h.icon}</span>
+                            <span class="habit-label">${h.label}</span>
+                            <span class="habit-check">${checked ? "✓" : ""}</span>
+                        </div>
+                    `;
+
+                })
+                .join("");
+
+        }
+
+        function renderChecklist() {
+            renderGroup("prayer-habits", "prayer");
+            renderGroup("adhkar-habits", "adhkar");
+            renderGroup("quran-habits", "quran");
+        }
+
+        function renderProgress() {
+
+            const count = kihdihCountCompleted(habitData, todayKey);
+            const total = KIHDIH_HABITS.length;
+
+            document.getElementById("today-count").textContent = `${count} / ${total}`;
+            document.getElementById("today-progress-bar").style.width = `${(count / total) * 100}%`;
+
+        }
+
+        function renderStreak() {
+
+            document.getElementById("current-streak").textContent = kihdihComputeCurrentStreak(habitData);
+            document.getElementById("best-streak").textContent = kihdihComputeBestStreak(habitData);
+
+        }
+
+        function renderBadges() {
+
+            const best = kihdihComputeBestStreak(habitData);
+
+            document.getElementById("badges-grid").innerHTML = KIHDIH_BADGES.map((b) => {
+
+                const unlocked = best >= b.days;
+
+                return `
+                    <div class="badge-item ${unlocked ? "unlocked" : ""}">
+                        <span class="badge-icon">${b.icon}</span>
+                        <span class="badge-label">${b.label}</span>
+                    </div>
+                `;
+
+            }).join("");
+
+        }
+
+        function renderWeekStrip() {
+
+            const days = kihdihGetLastNDays(7);
+
+            document.getElementById("week-strip").innerHTML = days.map((d) => {
+
+                const key = kihdihDateKey(d);
+                const count = kihdihCountCompleted(habitData, key);
+                const total = KIHDIH_HABITS.length;
+                const isToday = key === todayKey;
+
+                let stateClass = "";
+                let icon = "";
+
+                if (count === total && total > 0) {
+                    stateClass = "complete";
+                    icon = "✓";
+                } else if (count > 0) {
+                    stateClass = "partial";
+                    icon = count;
+                }
+
+                return `
+                    <div class="week-day">
+                        <div class="week-day-name">${KIHDIH_DAY_NAMES[d.getDay()]}</div>
+                        <div class="week-day-circle ${stateClass} ${isToday ? "today" : ""}">${icon}</div>
+                    </div>
+                `;
+
+            }).join("");
+
+        }
+
+        document.addEventListener("click", (e) => {
+
+            const item = e.target.closest(".habit-item");
+            if (!item) return;
+
+            toggleHabit(item.dataset.habit);
+
+        });
+
+        renderChecklist();
+        renderProgress();
+        renderStreak();
+        renderBadges();
+        renderWeekStrip();
+
+    </script>
+
+    <script src="js/menu.js"></script>
+
+</body>
+
+</html>

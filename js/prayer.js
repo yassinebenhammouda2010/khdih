@@ -395,57 +395,92 @@ function startCountdown(
 // LOCALISATION
 // ========================================
 
-locationButton.addEventListener(
-    "click",
-    () => {
+locationButton.addEventListener("click", () => {
 
-        if (
-            !navigator.geolocation
-        ) {
+    if (!navigator.geolocation) {
+        locationStatus.textContent =
+            "المتصفح لا يدعم تحديد الموقع";
+        return;
+    }
+
+    locationStatus.textContent =
+        "📍 جاري تحديد موقعك...";
+
+    locationButton.disabled = true;
+
+    navigator.geolocation.getCurrentPosition(
+
+        async (position) => {
+
+            const latitude = position.coords.latitude;
+            const longitude = position.coords.longitude;
+
+            console.log("Latitude:", latitude);
+            console.log("Longitude:", longitude);
 
             locationStatus.textContent =
-                "المتصفح لا يدعم تحديد الموقع";
+                "تم تحديد موقعك بنجاح ✓";
 
-            return;
-
-        }
-
-
-        locationStatus.textContent =
-            "جاري تحديد موقعك...";
-
-
-        navigator.geolocation.getCurrentPosition(
-
-            async (position) => {
-
-                const latitude =
-                    position.coords.latitude;
-
-                const longitude =
-                    position.coords.longitude;
-
-
-                locationStatus.textContent =
-                    "تم تحديد موقعك بنجاح ✓";
-
+            try {
 
                 await getPrayerTimes(
                     latitude,
                     longitude
                 );
 
-            },
+            } catch (error) {
 
-
-            () => {
+                console.error(
+                    "Erreur horaires:",
+                    error
+                );
 
                 locationStatus.textContent =
-                    "تعذر تحديد موقعك";
+                    "تم تحديد الموقع لكن تعذر جلب مواقيت الصلاة";
 
             }
 
-        );
+            locationButton.disabled = false;
+        },
 
-    }
-);
+        (error) => {
+
+            console.error(
+                "Erreur localisation:",
+                error
+            );
+
+            switch (error.code) {
+
+                case error.PERMISSION_DENIED:
+                    locationStatus.textContent =
+                        "❌ تم رفض إذن تحديد الموقع";
+                    break;
+
+                case error.POSITION_UNAVAILABLE:
+                    locationStatus.textContent =
+                        "❌ موقعك غير متاح حاليًا";
+                    break;
+
+                case error.TIMEOUT:
+                    locationStatus.textContent =
+                        "❌ انتهى وقت تحديد الموقع، حاول مرة أخرى";
+                    break;
+
+                default:
+                    locationStatus.textContent =
+                        "❌ حدث خطأ أثناء تحديد الموقع";
+            }
+
+            locationButton.disabled = false;
+        },
+
+        {
+            enableHighAccuracy: true,
+            timeout: 15000,
+            maximumAge: 0
+        }
+
+    );
+
+});

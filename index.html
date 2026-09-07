@@ -73,6 +73,14 @@
     آية لك
 </a>
 
+                    <a href="competition.html">
+                🏆 مسابقة
+            </a>
+
+            <a href="habits.html">
+                📿 عاداتي
+            </a>
+
         </nav>
 
 
@@ -168,6 +176,74 @@
                         </strong>
 
                     </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- ================= STATS ================= -->
+
+        <section class="stats-bar">
+
+            <div class="container stats-grid">
+
+                <div class="stat-item">
+                    <strong>114</strong>
+                    <span>سورة قرآنية</span>
+                </div>
+
+                <div class="stat-item">
+                    <strong>97</strong>
+                    <span>كتابًا من صحيح البخاري</span>
+                </div>
+
+                <div class="stat-item">
+                    <strong>10</strong>
+                    <span>أذكار صباح ومساء</span>
+                </div>
+
+                <div class="stat-item">
+                    <strong>5</strong>
+                    <span>مواقيت صلاة يومية</span>
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- ================= HABITS WIDGET ================= -->
+
+        <section class="home-section habits-widget-section">
+
+            <div class="container">
+
+                <div class="habits-widget-card">
+
+                    <div class="habits-widget-header">
+
+                        <div>
+                            <span class="habits-widget-label">📿 عاداتي اليوم</span>
+                            <h3 id="widget-progress-text">جاري التحميل...</h3>
+                        </div>
+
+                        <div class="habits-widget-streak">
+                            <strong id="widget-streak">0</strong>
+                            <span>🔥 يوم متتالي</span>
+                        </div>
+
+                    </div>
+
+                    <div class="habits-widget-bar-bg">
+                        <div id="widget-progress-bar" class="habits-widget-bar-fill" style="width: 0%;"></div>
+                    </div>
+
+                    <a href="habits.html" class="habits-widget-link">
+                        افتح متتبع العادات الكامل ←
+                    </a>
 
                 </div>
 
@@ -354,6 +430,96 @@
 
                     </a>
 
+
+                    <!-- Bukhari -->
+
+                    <a
+                        href="bukhari.html"
+                        class="quick-card"
+                    >
+
+                        <div class="quick-icon">
+                            📚
+                        </div>
+
+                        <div>
+
+                            <h3>
+                                صحيح البخاري
+                            </h3>
+
+                            <p>
+                                تصفح كتب وأبواب الحديث الشريف
+                            </p>
+
+                        </div>
+
+                        <span>
+                            ←
+                        </span>
+
+                    </a>
+
+
+                    <!-- Aya -->
+
+                    <a
+                        href="aya.html"
+                        class="quick-card"
+                    >
+
+                        <div class="quick-icon">
+                            🌿
+                        </div>
+
+                        <div>
+
+                            <h3>
+                                آية لك
+                            </h3>
+
+                            <p>
+                                آية تناسب شعورك الآن
+                            </p>
+
+                        </div>
+
+                        <span>
+                            ←
+                        </span>
+
+                    </a>
+
+
+                    <!-- Competition -->
+
+                    <a
+                        href="competition.html"
+                        class="quick-card"
+                    >
+
+                        <div class="quick-icon">
+                            🏆
+                        </div>
+
+                        <div>
+
+                            <h3>
+                                مسابقة
+                            </h3>
+
+                            <p>
+                                تحدَّ أصدقاءك في معلوماتك الإسلامية
+                            </p>
+
+                        </div>
+
+                        <span>
+                            ←
+                        </span>
+
+                    </a>
+
                 </div>
 
             </div>
@@ -373,13 +539,57 @@
                         📜 آية اليوم
                     </span>
 
-                    <p class="ayah-arabic">
+                    <p
+                        id="home-ayah-arabic"
+                        class="ayah-arabic"
+                    >
                         فَإِنَّ مَعَ الْعُسْرِ يُسْرًا
                     </p>
 
-                    <p class="ayah-reference">
+                    <p
+                        id="home-ayah-reference"
+                        class="ayah-reference"
+                    >
                         سورة الشرح — الآية 5
                     </p>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- ================= CTA COMPETITION ================= -->
+
+        <section class="home-cta-section">
+
+            <div class="container">
+
+                <div class="home-cta-card">
+
+                    <div>
+
+                        <span class="home-cta-badge">
+                            🏆 جديد
+                        </span>
+
+                        <h2>
+                            جرّب مسابقة Kihdih مع أصدقائك
+                        </h2>
+
+                        <p>
+                            أضف أسماء المشاركين وابدأ تحديًا في المعلومات الإسلامية، بمستويات صعوبة متدرجة وأسئلة متنوعة.
+                        </p>
+
+                    </div>
+
+                    <a
+                        href="competition.html"
+                        class="home-cta-button"
+                    >
+                        ابدأ المسابقة ←
+                    </a>
 
                 </div>
 
@@ -406,8 +616,61 @@
     </footer>
 
 
+    <script src="js/habits.js"></script>
     <script src="js/home.js"></script>
     <script src="js/menu.js"></script>
+
+    <script>
+
+        // آية مختلفة كل يوم (تتغير تلقائيًا حسب تاريخ اليوم)
+        const HOME_AYAH_POOL = [
+            { text: "فَإِنَّ مَعَ الْعُسْرِ يُسْرًا", ref: "سورة الشرح — الآية 5" },
+            { text: "وَبَشِّرِ الصَّابِرِينَ", ref: "سورة البقرة — الآية 155" },
+            { text: "إِنَّ اللَّهَ مَعَ الصَّابِرِينَ", ref: "سورة البقرة — الآية 153" },
+            { text: "وَمَن يَتَوَكَّلْ عَلَى اللَّهِ فَهُوَ حَسْبُهُ", ref: "سورة الطلاق — الآية 3" },
+            { text: "أَلَا بِذِكْرِ اللَّهِ تَطْمَئِنُّ الْقُلُوبُ", ref: "سورة الرعد — الآية 28" },
+            { text: "وَقُل رَّبِّ زِدْنِي عِلْمًا", ref: "سورة طه — الآية 114" },
+            { text: "رَبَّنَا آتِنَا فِي الدُّنْيَا حَسَنَةً", ref: "سورة البقرة — الآية 201" },
+            { text: "فَاذْكُرُونِي أَذْكُرْكُمْ", ref: "سورة البقرة — الآية 152" },
+            { text: "إِنَّ مَعَ الْعُسْرِ يُسْرًا", ref: "سورة الشرح — الآية 6" },
+            { text: "وَاللَّهُ خَيْرٌ حَافِظًا وَهُوَ أَرْحَمُ الرَّاحِمِينَ", ref: "سورة يوسف — الآية 64" }
+        ];
+
+        function dayOfYear(date) {
+            const start = new Date(date.getFullYear(), 0, 0);
+            const diff = date - start;
+            return Math.floor(diff / 86400000);
+        }
+
+        const ayahArabicEl = document.getElementById("home-ayah-arabic");
+        const ayahReferenceEl = document.getElementById("home-ayah-reference");
+
+        if (ayahArabicEl && ayahReferenceEl) {
+            const index = dayOfYear(new Date()) % HOME_AYAH_POOL.length;
+            const todayAyah = HOME_AYAH_POOL[index];
+            ayahArabicEl.textContent = todayAyah.text;
+            ayahReferenceEl.textContent = todayAyah.ref;
+        }
+
+        // -------- ويدجت عاداتي (يقرأ نفس بيانات صفحة habits.html) --------
+        const widgetProgressText = document.getElementById("widget-progress-text");
+        const widgetProgressBar = document.getElementById("widget-progress-bar");
+        const widgetStreak = document.getElementById("widget-streak");
+
+        if (widgetProgressText && typeof kihdihLoadData === "function") {
+
+            const habitData = kihdihLoadData();
+            const todayKey = kihdihTodayKey();
+            const count = kihdihCountCompleted(habitData, todayKey);
+            const total = KIHDIH_HABITS.length;
+
+            widgetProgressText.textContent = `${count} من ${total} أنجزتها اليوم`;
+            widgetProgressBar.style.width = `${(count / total) * 100}%`;
+            widgetStreak.textContent = kihdihComputeCurrentStreak(habitData);
+
+        }
+
+    </script>
 
 </body>
 
