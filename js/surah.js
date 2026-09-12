@@ -18,7 +18,9 @@ const ayahsContainer = document.getElementById("ayahs-container");
 const audio = new Audio();
 
 let currentAyah = null;
-let currentAudioUrl = null;
+
+// وضع التشغيل الحالي: "single" (آية واحدة) | "range" (نطاق آيات) | "full" (السورة كاملة)
+let playbackMode = "idle";
 
 
 /* =========================
@@ -32,6 +34,25 @@ function getSelectedReciter() {
     return (
         localStorage.getItem("kihdih_reciter")
         || DEFAULT_RECITER
+    );
+
+}
+
+function setSelectedReciter(id) {
+
+    try {
+        localStorage.setItem("kihdih_reciter", id);
+    } catch (e) {
+        // تجاهل
+    }
+
+}
+
+function getReciterObject() {
+
+    return (
+        RECITERS.find(item => item.id === getSelectedReciter())
+        || RECITERS[0]
     );
 
 }
@@ -97,10 +118,46 @@ const RECITERS = [
         provider: "everyayah",
 
         folder:
-            "Yasser_Ad-Dussary_128kbps"
+            "Yasser_Ad-Dussary_128kbps",
+
+        // مصدر بديل موثوق لملف السورة الكاملة دفعة واحدة (mp3quran.net)
+        fullSurahServer:
+            "https://server11.mp3quran.net/download/yasser"
     }
 
 ];
+
+
+/* =========================
+   RECITER SELECT (UI)
+================================ */
+
+const reciterSelectEl = document.getElementById("reciter-select");
+
+function populateReciterSelect() {
+
+    if (!reciterSelectEl) return;
+
+    reciterSelectEl.innerHTML = RECITERS
+        .map(r => `<option value="${r.id}">${r.name}</option>`)
+        .join("");
+
+    reciterSelectEl.value = getSelectedReciter();
+
+}
+
+if (reciterSelectEl) {
+
+    reciterSelectEl.addEventListener("change", () => {
+
+        setSelectedReciter(reciterSelectEl.value);
+
+        // نوقف أي تشغيل جارٍ لتفادي خلط قارئين مختلفين
+        stopPlayback();
+
+    });
+
+}
 
 
 /* =========================
@@ -262,7 +319,7 @@ function renderAyahs(ayahs) {
                     class="ayah-number"
                     type="button"
                     aria-label="الاستماع إلى الآية ${ayah.numberInSurah}"
-                    title="استمع إلى هذه الآية"
+                    title="اضغط للاستماع، أو لتحديد بداية/نهاية نطاق"
                 >
                     ${ayah.numberInSurah}
                 </button>
@@ -284,7 +341,7 @@ function renderAyahs(ayahs) {
 
 
 /* =========================
-   AUDIO URL - EVERYAYAH
+   AUDIO URL - EVERYAYAH (آية واحدة)
 ================================ */
 
 function getEveryAyahUrl(
@@ -312,22 +369,14 @@ function getEveryAyahUrl(
 
 
 /* =========================
-   GET AUDIO URL
+   GET AUDIO URL (آية واحدة)
 ================================ */
 
 async function getAyahAudioUrl(
     ayahNumber
 ) {
 
-    const reciterId =
-        getSelectedReciter();
-
-
-    const reciter =
-        RECITERS.find(
-            item => item.id === reciterId
-        );
-
+    const reciter = getReciterObject();
 
     if (!reciter) {
 
@@ -336,9 +385,7 @@ async function getAyahAudioUrl(
     }
 
 
-    /* =========================
-       EVERYAYAH
-    ========================== */
+    /* EVERYAYAH */
 
     if (
         reciter.provider ===
@@ -354,9 +401,7 @@ async function getAyahAudioUrl(
     }
 
 
-    /* =========================
-       ALQURAN CLOUD
-    ========================== */
+    /* ALQURAN CLOUD */
 
     try {
 
@@ -425,52 +470,81 @@ async function getAyahAudioUrl(
 
 
 /* =========================
-   START AYAH
+   AUDIO URL - السورة كاملة (ملف واحد متواصل بدون توقف)
 ================================ */
 
-async function playAyah(
+function getFullSurahAudioUrl() {
+
+    const reciter = getReciterObject();
+
+    if (!reciter) return null;
+
+    const paddedSurah =
+        String(surahNumber).padStart(3, "0");
+
+
+    if (reciter.provider === "everyayah") {
+
+        // نستخدم مصدر mp3quran.net الموثوق للملف الكامل دفعة واحدة
+        return `${reciter.fullSurahServer}/${paddedSurah}.mp3`;
+
+    }
+
+
+    // بقية القراء: ملف السورة الكاملة عبر شبكة islamic.network
+    return `https://cdn.islamic.network/quran/audio-surah/128/${reciter.id}/${surahNumber}.mp3`;
+
+}
+
+
+/* =========================
+   إيقاف كل تشغيل وإعادة الضبط
+================================ */
+
+function stopPlayback() {
+
+    audio.pause();
+    audio.currentTime = 0;
+    audio.src = "";
+
+    playbackMode = "idle";
+
+    currentAyah = null;
+
+    rangeQueue = [];
+    rangeQueueIndex = 0;
+
+    clearAllAyahHighlights();
+
+    hidePlayer();
+
+}
+
+
+/* =========================
+   تشغيل آية واحدة (السلوك الأصلي: بدون انتقال تلقائي)
+================================ */
+
+async function playSingleAyah(
     ayahNumber
 ) {
 
     if (!ayahNumber) return;
 
-
-    /*
-       Arrêter l'audio précédent.
-    */
-
     audio.pause();
-
     audio.currentTime = 0;
 
+    playbackMode = "single";
+    currentAyah = ayahNumber;
 
-    currentAyah =
-        ayahNumber;
-
-
-    /*
-       Mettre à jour l'affichage
-    */
-
-    setActiveAyah(
-        ayahNumber
-    );
-
+    setActiveAyah(ayahNumber);
 
     updatePlayer(
-        ayahNumber
+        `الآية ${ayahNumber}`
     );
 
 
-    /*
-       Récupérer l'URL
-    */
-
-    const audioUrl =
-        await getAyahAudioUrl(
-            ayahNumber
-        );
-
+    const audioUrl = await getAyahAudioUrl(ayahNumber);
 
     if (!audioUrl) {
 
@@ -483,31 +557,262 @@ async function playAyah(
 
     }
 
-
-    currentAudioUrl =
-        audioUrl;
-
-
-    audio.src =
-        audioUrl;
-
+    audio.src = audioUrl;
 
     try {
 
         await audio.play();
 
-
-        updatePlayer(
-            ayahNumber
-        );
-
+        updatePlayer(`الآية ${ayahNumber}`);
 
     } catch (error) {
 
-        console.error(
-            "Impossible de lire l'audio :",
-            error
+        console.error("Impossible de lire l'audio :", error);
+
+    }
+
+}
+
+
+/* =========================
+   تشغيل السورة كاملة بدون أي توقف بين الآيات
+================================ */
+
+async function playFullSurah() {
+
+    audio.pause();
+    audio.currentTime = 0;
+
+    playbackMode = "full";
+    currentAyah = null;
+
+    clearAllAyahHighlights();
+
+    updatePlayer("السورة كاملة");
+
+    const url = getFullSurahAudioUrl();
+
+    if (!url) {
+        console.error("تعذر تحديد رابط السورة الكاملة");
+        return;
+    }
+
+    audio.src = url;
+
+    try {
+
+        await audio.play();
+
+        updatePlayer("السورة كاملة");
+
+    } catch (error) {
+
+        console.error("Impossible de lire la sourate complète :", error);
+
+    }
+
+}
+
+
+/* =========================
+   وضع تحديد النطاق (من آية إلى آية)
+================================ */
+
+let rangeSelectionActive = false;
+let rangeStart = null;
+let rangeQueue = [];
+let rangeQueueIndex = 0;
+let rangeUrlCache = {};
+
+const toggleRangeBtn = document.getElementById("toggle-range-mode");
+const cancelRangeBtn = document.getElementById("cancel-range-mode");
+const rangeModeHint = document.getElementById("range-mode-hint");
+const playFullSurahBtn = document.getElementById("play-full-surah");
+
+function clearAllAyahHighlights() {
+
+    document.querySelectorAll(".ayah-item").forEach(item => {
+
+        item.classList.remove(
+            "is-playing",
+            "is-range-start",
+            "is-range-queued"
         );
+
+    });
+
+}
+
+function resetRangeSelection() {
+
+    rangeStart = null;
+
+    document.querySelectorAll(".ayah-item.is-range-start")
+        .forEach(item => item.classList.remove("is-range-start"));
+
+    if (rangeModeHint) {
+
+        rangeModeHint.textContent =
+            "اضغط على رقم آية البداية، ثم رقم آية النهاية";
+
+    }
+
+}
+
+function setRangeModeActive(active) {
+
+    rangeSelectionActive = active;
+
+    if (toggleRangeBtn) {
+
+        toggleRangeBtn.classList.toggle("active", active);
+
+    }
+
+    if (cancelRangeBtn) {
+
+        cancelRangeBtn.classList.toggle("hidden", !active);
+
+    }
+
+    if (rangeModeHint) {
+
+        rangeModeHint.classList.toggle("hidden", !active);
+
+    }
+
+    resetRangeSelection();
+
+}
+
+if (toggleRangeBtn) {
+
+    toggleRangeBtn.addEventListener("click", () => {
+
+        setRangeModeActive(!rangeSelectionActive);
+
+    });
+
+}
+
+if (cancelRangeBtn) {
+
+    cancelRangeBtn.addEventListener("click", () => {
+
+        setRangeModeActive(false);
+
+    });
+
+}
+
+if (playFullSurahBtn) {
+
+    playFullSurahBtn.addEventListener("click", () => {
+
+        setRangeModeActive(false);
+
+        playFullSurah();
+
+    });
+
+}
+
+
+/* =========================
+   بدء تشغيل نطاق الآيات المحدد
+================================ */
+
+function startRangePlayback(startAyah, endAyah) {
+
+    const from = Math.min(startAyah, endAyah);
+    const to = Math.max(startAyah, endAyah);
+
+    rangeQueue = [];
+
+    for (let i = from; i <= to; i++) {
+        rangeQueue.push(i);
+    }
+
+    rangeQueueIndex = 0;
+    rangeUrlCache = {};
+
+    playbackMode = "range";
+
+    playCurrentRangeItem();
+
+}
+
+async function playCurrentRangeItem() {
+
+    if (rangeQueueIndex >= rangeQueue.length) {
+
+        // انتهى النطاق بالكامل
+        playbackMode = "idle";
+
+        clearAllAyahHighlights();
+
+        updatePlayer("اكتملت التلاوة");
+
+        setTimeout(hidePlayer, 1500);
+
+        return;
+
+    }
+
+    const ayahNumber = rangeQueue[rangeQueueIndex];
+
+    currentAyah = ayahNumber;
+
+    setActiveAyah(ayahNumber);
+
+    updatePlayer(
+        `الآيات ${rangeQueue[0]}–${rangeQueue[rangeQueue.length - 1]} • الآية ${ayahNumber}`
+    );
+
+    // استخدام الرابط المُحمَّل مسبقًا إن وُجد لتقليل أي تأخير بين الآيات
+    let url = rangeUrlCache[ayahNumber];
+
+    if (!url) {
+        url = await getAyahAudioUrl(ayahNumber);
+    }
+
+    if (!url) {
+
+        console.error("تعذر تحميل رابط الآية", ayahNumber);
+
+        // ننتقل للآية التالية في النطاق بدلًا من التوقف الكامل
+        rangeQueueIndex++;
+
+        playCurrentRangeItem();
+
+        return;
+
+    }
+
+    audio.src = url;
+
+    try {
+
+        await audio.play();
+
+    } catch (error) {
+
+        console.error("Impossible de lire l'audio de la plage :", error);
+
+    }
+
+    // تحميل مسبق للآية التالية في الخلفية (لتقليل التوقف بينها)
+    const nextAyah = rangeQueue[rangeQueueIndex + 1];
+
+    if (nextAyah && !rangeUrlCache[nextAyah]) {
+
+        getAyahAudioUrl(nextAyah).then(nextUrl => {
+
+            if (nextUrl) {
+                rangeUrlCache[nextAyah] = nextUrl;
+            }
+
+        });
 
     }
 
@@ -557,23 +862,43 @@ if (ayahsContainer) {
             }
 
 
-            /*
-               IMPORTANT :
+            /* ==== وضع تحديد النطاق ==== */
 
-               Chaque clic choisit simplement
-               cette ayah.
+            if (rangeSelectionActive) {
 
-               L'audio précédent est arrêté.
+                if (rangeStart === null) {
 
-               Cette ayah est lue UNE SEULE FOIS.
+                    rangeStart = ayahNumber;
 
-               Elle ne passe PAS automatiquement
-               à l'ayah suivante.
-            */
+                    ayahElement.classList.add("is-range-start");
 
-            playAyah(
-                ayahNumber
-            );
+                    if (rangeModeHint) {
+
+                        rangeModeHint.textContent =
+                            `بداية النطاق: الآية ${ayahNumber} — الآن اضغط على آية النهاية`;
+
+                    }
+
+                    return;
+
+                }
+
+                // تم اختيار آية النهاية: نبدأ التشغيل مباشرة
+                const startAyah = rangeStart;
+                const endAyah = ayahNumber;
+
+                setRangeModeActive(false);
+
+                startRangePlayback(startAyah, endAyah);
+
+                return;
+
+            }
+
+
+            /* ==== الوضع العادي: تشغيل آية واحدة فقط ==== */
+
+            playSingleAyah(ayahNumber);
 
         }
     );
@@ -589,13 +914,29 @@ audio.addEventListener(
     "ended",
     () => {
 
-        /*
-           IMPORTANT :
+        if (playbackMode === "range") {
 
-           On ne lance PAS l'ayah suivante.
+            rangeQueueIndex++;
 
-           La lecture s'arrête simplement.
-        */
+            playCurrentRangeItem();
+
+            return;
+
+        }
+
+        if (playbackMode === "full") {
+
+            playbackMode = "idle";
+
+            updatePlayer("اكتملت السورة");
+
+            setTimeout(hidePlayer, 1500);
+
+            return;
+
+        }
+
+        // playbackMode === "single"
 
         if (currentAyah) {
 
@@ -615,6 +956,8 @@ audio.addEventListener(
                 "▶";
 
         }
+
+        playbackMode = "idle";
 
     }
 );
@@ -686,20 +1029,38 @@ const playerAyah =
     );
 
 
+const playerReciterLabel =
+    document.getElementById(
+        "player-reciter"
+    );
+
+
 const playerPause =
     document.getElementById(
         "player-pause"
     );
 
 
+const playerStop =
+    document.getElementById(
+        "player-stop"
+    );
+
+
+const playerProgress =
+    document.getElementById(
+        "player-progress"
+    );
+
+
 function updatePlayer(
-    ayahNumber
+    label
 ) {
 
     if (surahPlayer) {
 
-        surahPlayer.classList.add(
-            "show"
+        surahPlayer.classList.remove(
+            "hidden"
         );
 
     }
@@ -708,7 +1069,17 @@ function updatePlayer(
     if (playerAyah) {
 
         playerAyah.textContent =
-            `الآية ${ayahNumber}`;
+            label;
+
+    }
+
+
+    if (playerReciterLabel) {
+
+        const reciter = getReciterObject();
+
+        playerReciterLabel.textContent =
+            reciter ? reciter.name : "";
 
     }
 
@@ -719,6 +1090,16 @@ function updatePlayer(
             audio.paused
                 ? "▶"
                 : "⏸";
+
+    }
+
+}
+
+function hidePlayer() {
+
+    if (surahPlayer) {
+
+        surahPlayer.classList.add("hidden");
 
     }
 
@@ -791,6 +1172,39 @@ if (playerPause) {
 
 
 /* =========================
+   STOP
+================================ */
+
+if (playerStop) {
+
+    playerStop.addEventListener(
+        "click",
+        () => {
+
+            stopPlayback();
+
+        }
+    );
+
+}
+
+
+/* =========================
+   PROGRESS BAR
+================================ */
+
+audio.addEventListener("timeupdate", () => {
+
+    if (!playerProgress || !audio.duration) return;
+
+    const percent = (audio.currentTime / audio.duration) * 100;
+
+    playerProgress.style.width = `${percent}%`;
+
+});
+
+
+/* =========================
    AUDIO ERROR
 ================================ */
 
@@ -806,6 +1220,16 @@ audio.addEventListener(
 
             playerPause.textContent =
                 "▶";
+
+        }
+
+
+        // في وضع النطاق، لا نتوقف بالكامل: ننتقل للآية التالية
+        if (playbackMode === "range") {
+
+            rangeQueueIndex++;
+
+            playCurrentRangeItem();
 
         }
 
@@ -843,4 +1267,5 @@ function showError(
    START
 ================================ */
 
+populateReciterSelect();
 loadSurah();

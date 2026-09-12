@@ -111,10 +111,57 @@
                 </div>
 
 
-                <!-- TILAWAH HINT -->
+                <!-- TILAWAH TOOLBAR -->
                 <div class="ayah-tilawah-hint">
 
-                    💡 للاستماع من آية محددة، اضغط على رقم الآية.
+                    💡 اضغط على رقم الآية للاستماع إليها وحدها.
+
+                </div>
+
+                <div class="tilawah-toolbar">
+
+                    <div class="reciter-select-row">
+
+                        <label for="reciter-select">
+                            🎙️ القارئ:
+                        </label>
+
+                        <select id="reciter-select">
+                        </select>
+
+                    </div>
+
+                    <div class="tilawah-buttons">
+
+                        <button
+                            id="play-full-surah"
+                            class="tilawah-button"
+                            type="button"
+                        >
+                            🔊 تشغيل السورة كاملة
+                        </button>
+
+                        <button
+                            id="toggle-range-mode"
+                            class="tilawah-button"
+                            type="button"
+                        >
+                            🎯 تحديد آية البداية والنهاية
+                        </button>
+
+                        <button
+                            id="cancel-range-mode"
+                            class="tilawah-button tilawah-button-ghost hidden"
+                            type="button"
+                        >
+                            ✕ إلغاء التحديد
+                        </button>
+
+                    </div>
+
+                    <p id="range-mode-hint" class="range-mode-hint hidden">
+                        اضغط على رقم آية البداية، ثم رقم آية النهاية
+                    </p>
 
                 </div>
 
@@ -136,6 +183,60 @@
         </section>
 
     </main>
+
+
+    <!-- ================= PLAYER BAR ================= -->
+
+    <div
+        id="surah-player"
+        class="surah-player hidden"
+    >
+
+        <div class="surah-player-info">
+
+            <span id="player-ayah">—</span>
+
+            <span
+                id="player-reciter"
+                class="surah-player-reciter"
+            >
+                —
+            </span>
+
+        </div>
+
+
+        <div class="surah-player-progress-bg">
+
+            <div
+                id="player-progress"
+                class="surah-player-progress-fill"
+            ></div>
+
+        </div>
+
+
+        <div class="surah-player-controls">
+
+            <button
+                id="player-pause"
+                type="button"
+                aria-label="تشغيل / إيقاف"
+            >
+                ⏸
+            </button>
+
+            <button
+                id="player-stop"
+                type="button"
+                aria-label="إيقاف كامل"
+            >
+                ⏹
+            </button>
+
+        </div>
+
+    </div>
 
 
     <!-- FOOTER -->

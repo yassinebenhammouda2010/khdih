@@ -103,7 +103,7 @@
 .ayah-tilawah-hint {
     max-width: 850px;
 
-    margin: 0 auto 25px;
+    margin: 0 auto 20px;
 
     padding: 15px 20px;
 
@@ -120,6 +120,167 @@
     font-size: 15px;
 
     font-weight: 600;
+}
+
+
+/* =========================
+   TILAWAH TOOLBAR
+========================= */
+
+.tilawah-toolbar {
+    max-width: 850px;
+
+    margin: 0 auto 25px;
+
+    padding: 18px 20px;
+
+    background-color: var(--white);
+
+    border: 1px solid var(--border);
+
+    border-radius: 14px;
+
+    box-shadow: var(--shadow);
+
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 14px;
+}
+
+.reciter-select-row {
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    gap: 10px;
+
+    font-size: 15px;
+
+    color: var(--text-light);
+}
+
+.reciter-select-row label {
+    white-space: nowrap;
+}
+
+.reciter-select-row select {
+    flex: 1;
+
+    max-width: 320px;
+
+    padding: 10px 14px;
+
+    border: 1px solid var(--border);
+    border-radius: 10px;
+
+    background-color: var(--white);
+    color: var(--text);
+
+    font-family: inherit;
+    font-size: 15px;
+
+    outline: none;
+}
+
+.tilawah-buttons {
+    display: flex;
+
+    flex-wrap: wrap;
+
+    justify-content: center;
+
+    gap: 10px;
+}
+
+.tilawah-button {
+    border: 1px solid var(--border);
+
+    background-color: #edf4f0;
+
+    color: var(--primary);
+
+    padding: 10px 18px;
+
+    border-radius: 10px;
+
+    font-family: inherit;
+
+    font-size: 14px;
+
+    font-weight: 700;
+
+    cursor: pointer;
+
+    transition: 0.2s ease;
+}
+
+.tilawah-button:hover {
+    background-color: var(--primary);
+
+    color: var(--white);
+}
+
+.tilawah-button.active {
+    background-color: var(--secondary);
+
+    color: var(--white);
+
+    border-color: var(--secondary);
+}
+
+.tilawah-button-ghost {
+    background-color: transparent;
+
+    color: #c0392b;
+
+    border-color: #f0d3d0;
+}
+
+.tilawah-button-ghost:hover {
+    background-color: #fdecea;
+
+    color: #c0392b;
+}
+
+.tilawah-button.hidden,
+.range-mode-hint.hidden {
+    display: none;
+}
+
+.range-mode-hint {
+    text-align: center;
+
+    color: var(--primary);
+
+    font-size: 14px;
+
+    font-weight: 600;
+}
+
+
+/* =========================
+   RANGE SELECTION
+========================= */
+
+.ayah-item.is-range-start .ayah-number,
+.ayah-item.is-range-end .ayah-number {
+    background-color: var(--secondary);
+
+    border-color: var(--secondary);
+}
+
+.ayah-item.is-range-start {
+    border-color: var(--secondary);
+}
+
+.ayah-item.is-range-queued {
+    border-color: var(--secondary);
+
+    background-color: #fff8ee;
 }
 
 
@@ -275,6 +436,112 @@
 
 
 /* =========================
+   PLAYER BAR
+========================= */
+
+.surah-player {
+    position: fixed;
+
+    bottom: 0;
+    left: 0;
+    right: 0;
+
+    z-index: 1200;
+
+    background-color: var(--primary);
+
+    color: var(--white);
+
+    padding: 12px 20px;
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 16px;
+
+    box-shadow: 0 -10px 30px rgba(0, 0, 0, 0.15);
+}
+
+.surah-player.hidden {
+    display: none;
+}
+
+.surah-player-info {
+    display: flex;
+
+    flex-direction: column;
+
+    min-width: 160px;
+}
+
+.surah-player-info span:first-child {
+    font-weight: 700;
+
+    font-size: 15px;
+}
+
+.surah-player-reciter {
+    font-size: 12px;
+
+    color: #dce8e2;
+}
+
+.surah-player-progress-bg {
+    flex: 1;
+
+    height: 6px;
+
+    background-color: rgba(255, 255, 255, 0.2);
+
+    border-radius: 20px;
+
+    overflow: hidden;
+}
+
+.surah-player-progress-fill {
+    height: 100%;
+
+    width: 0%;
+
+    background-color: var(--secondary);
+
+    border-radius: 20px;
+
+    transition: width 0.1s linear;
+}
+
+.surah-player-controls {
+    display: flex;
+
+    gap: 8px;
+
+    flex-shrink: 0;
+}
+
+.surah-player-controls button {
+    width: 36px;
+    height: 36px;
+
+    border-radius: 50%;
+
+    border: none;
+
+    background-color: rgba(255, 255, 255, 0.15);
+
+    color: var(--white);
+
+    font-size: 15px;
+
+    cursor: pointer;
+}
+
+.surah-player-controls button:hover {
+    background-color: rgba(255, 255, 255, 0.25);
+}
+
+
+/* =========================
    RESPONSIVE
 ========================= */
 
@@ -316,6 +583,40 @@
         font-size: 13px;
 
         margin-left: 7px;
+    }
+
+    .reciter-select-row {
+        flex-direction: column;
+
+        align-items: stretch;
+
+        text-align: center;
+    }
+
+    .reciter-select-row select {
+        max-width: none;
+
+        width: 100%;
+    }
+
+    .surah-player {
+        flex-wrap: wrap;
+
+        padding: 10px 15px;
+    }
+
+    .surah-player-info {
+        min-width: 0;
+
+        flex: 1;
+    }
+
+    .surah-player-progress-bg {
+        order: 3;
+
+        width: 100%;
+
+        flex-basis: 100%;
     }
 
 }
