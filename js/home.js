@@ -12,7 +12,7 @@ const countdownElement =
     document.getElementById("home-countdown");
 
 
-let countdownInterval = null;
+let homeCountdownInterval = null;
 
 
 // ========================================
@@ -71,8 +71,10 @@ async function loadHomePrayerTimes(
 
         console.error(error);
 
-        nextPrayerName.textContent =
-            "تعذر تحميل المواقيت";
+        if (nextPrayerName) {
+            nextPrayerName.textContent =
+                "تعذر تحميل المواقيت";
+        }
 
     }
 
@@ -180,11 +182,15 @@ function findHomeNextPrayer(
     }
 
 
-    nextPrayerName.textContent =
-        next.name;
+    if (nextPrayerName) {
+        nextPrayerName.textContent =
+            next.name;
+    }
 
-    nextPrayerTime.textContent =
-        next.time;
+    if (nextPrayerTime) {
+        nextPrayerTime.textContent =
+            next.time;
+    }
 
 
     startHomeCountdown(
@@ -204,10 +210,10 @@ function startHomeCountdown(
     tomorrow
 ) {
 
-    if (countdownInterval) {
+    if (homeCountdownInterval) {
 
         clearInterval(
-            countdownInterval
+            homeCountdownInterval
         );
 
     }
@@ -254,11 +260,13 @@ function startHomeCountdown(
 
         if (difference <= 0) {
 
-            countdownElement.textContent =
-                "حان وقت الصلاة";
+            if (countdownElement) {
+                countdownElement.textContent =
+                    "حان وقت الصلاة";
+            }
 
             clearInterval(
-                countdownInterval
+                homeCountdownInterval
             );
 
             return;
@@ -288,11 +296,15 @@ function startHomeCountdown(
             totalSeconds % 60;
 
 
-        countdownElement.textContent =
-            `متبقي ` +
-            `${String(hoursLeft).padStart(2, "0")}:` +
-            `${String(minutesLeft).padStart(2, "0")}:` +
-            `${String(secondsLeft).padStart(2, "0")}`;
+        if (countdownElement) {
+
+            countdownElement.textContent =
+                `متبقي ` +
+                `${String(hoursLeft).padStart(2, "0")}:` +
+                `${String(minutesLeft).padStart(2, "0")}:` +
+                `${String(secondsLeft).padStart(2, "0")}`;
+
+        }
 
     }
 
@@ -300,7 +312,7 @@ function startHomeCountdown(
     update();
 
 
-    countdownInterval =
+    homeCountdownInterval =
         setInterval(
             update,
             1000
@@ -313,12 +325,14 @@ function startHomeCountdown(
 // LOCALISATION
 // ========================================
 
-function requestLocation() {
+function requestHomeLocation() {
 
     if (!navigator.geolocation) {
 
-        nextPrayerName.textContent =
-            "الموقع غير مدعوم";
+        if (nextPrayerName) {
+            nextPrayerName.textContent =
+                "الموقع غير مدعوم";
+        }
 
         return;
 
@@ -338,8 +352,10 @@ function requestLocation() {
 
         () => {
 
-            nextPrayerName.textContent =
-                "فعّل الموقع لمعرفة الصلاة القادمة";
+            if (nextPrayerName) {
+                nextPrayerName.textContent =
+                    "فعّل الموقع لمعرفة الصلاة القادمة";
+            }
 
         }
 
@@ -348,4 +364,4 @@ function requestLocation() {
 }
 
 
-requestLocation();
+requestHomeLocation();

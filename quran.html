@@ -17,91 +17,74 @@
 
     <header class="header">
 
-    <div class="container header-content">
+        <div class="container header-content">
 
-        <!-- LOGO -->
-
-        <a
-            href="index.html"
-            class="logo"
-        >
-            Kihdih
-        </a>
-
-
-        <!-- NAVIGATION -->
-
-        <nav
-            class="navbar"
-            id="navbar"
-        >
-
-            <a href="index.html">
-                الرئيسية
+            <a href="index.html" class="logo">
+                Kihdih
             </a>
 
-            <a href="quran.html">
-                القرآن الكريم
+            <nav class="navbar" id="navbar">
+
+                <a href="index.html">
+                    الرئيسية
+                </a>
+
+                <a href="quran.html">
+                    القرآن الكريم
+                </a>
+
+                <a href="bukhari.html">
+                    صحيح البخاري
+                </a>
+
+                <a href="adhkar.html">
+                    الأذكار
+                </a>
+
+                <a href="prayer.html">
+                    الصلاة
+                </a>
+
+                <a href="aya.html">
+                    آية لك
+                </a>
+
+                <a href="competition.html">
+                    🏆 مسابقة
+                </a>
+
+                <a href="habits.html">
+                    📿 عاداتي
+                </a>
+
+            </nav>
+
+            <a href="quran.html" class="header-button">
+                ابدأ القراءة
             </a>
-            <a href="bukhari.html">
-    صحيح البخاري
-</a>
 
-            <a href="adhkar.html">
-                الأذكار
-            </a>
+            <button
+                class="menu-toggle"
+                id="menu-toggle"
+                aria-label="فتح القائمة"
+                aria-expanded="false"
+                type="button"
+            >
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
 
-            <a href="prayer.html">
-                الصلاة
-            </a>
-            <a href="aya.html">
-    آية لك
-</a>
+        </div>
 
-                    <a href="competition.html">
-                🏆 مسابقة
-            </a>
-
-                    <a href="habits.html">
-                📿 عاداتي
-            </a>
-
-        </nav>
-
-
-        <!-- BOUTON DESKTOP -->
-
-        <a
-            href="quran.html"
-            class="header-button"
-        >
-            ابدأ القراءة
-        </a>
-
-
-        <!-- BOUTON MOBILE -->
-
-        <button
-            class="menu-toggle"
-            id="menu-toggle"
-            aria-label="فتح القائمة"
-            aria-expanded="false"
-        >
-            <span></span>
-            <span></span>
-            <span></span>
-        </button>
-
-    </div>
-
-</header>
+    </header>
 
 
     <!-- ================= MAIN ================= -->
 
     <main>
 
-        <!-- Hero Quran -->
+        <!-- HERO -->
 
         <section class="quran-hero">
 
@@ -120,7 +103,7 @@
         </section>
 
 
-        <!-- Liste des sourates -->
+        <!-- ================= SURAHS ================= -->
 
         <section class="surahs-section">
 
@@ -133,33 +116,58 @@
                     </h2>
 
                     <p>
-                        اختر السورة التي تريد قراءتها
+                        اختر السورة التي تريد قراءتها، أو ابحث عن آية بكلماتها
                     </p>
 
                 </div>
 
 
-                <!-- Recherche -->
+                <!-- SEARCH -->
 
                 <div class="quran-search">
 
                     <input
                         type="text"
                         id="surah-search"
-                        placeholder="ابحث عن سورة..."
+                        placeholder="ابحث عن اسم سورة، أو عن كلمات من آية..."
+                        autocomplete="off"
                     >
 
                 </div>
 
 
-                <!-- Sourates -->
+                <!-- AYAH SEARCH RESULTS -->
+
+                <div
+                    id="ayah-search-results"
+                    class="ayah-search-results hidden"
+                ></div>
+
+
+                <!-- RECITER -->
+
+                <div class="reciter-select-row">
+
+                    <label for="reciter-select">
+                        🎙️ اختر القارئ:
+                    </label>
+
+                    <select id="reciter-select">
+                    </select>
+
+                </div>
+
+
+                <!-- SURAHS GRID -->
 
                 <div
                     class="surahs-grid"
                     id="surahs-container"
                 >
 
-                    <!-- JavaScript va ajouter les sourates ici -->
+                    <p class="loading">
+                        جاري تحميل سور القرآن...
+                    </p>
 
                 </div>
 
@@ -168,6 +176,62 @@
         </section>
 
     </main>
+
+
+    <!-- ================= MINI PLAYER ================= -->
+
+    <div
+        id="mini-player"
+        class="mini-player hidden"
+    >
+
+        <div class="mini-player-info">
+
+            <span id="mini-player-surah">
+                —
+            </span>
+
+            <span
+                id="mini-player-reciter"
+                class="mini-player-reciter"
+            >
+                —
+            </span>
+
+        </div>
+
+
+        <div class="mini-player-progress-bg">
+
+            <div
+                id="mini-player-progress"
+                class="mini-player-progress-fill"
+            ></div>
+
+        </div>
+
+
+        <div class="mini-player-controls">
+
+            <button
+                id="mini-player-toggle"
+                aria-label="تشغيل / إيقاف"
+                type="button"
+            >
+                ▶️
+            </button>
+
+            <button
+                id="mini-player-close"
+                aria-label="إغلاق"
+                type="button"
+            >
+                ✕
+            </button>
+
+        </div>
+
+    </div>
 
 
     <!-- ================= FOOTER ================= -->

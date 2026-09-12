@@ -89,7 +89,7 @@ a {
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: 5px;
+    gap: 10px;
     flex: 1;
 }
 
@@ -124,38 +124,6 @@ a {
 .header-button:hover {
     background-color: var(--primary-light);
     transform: translateY(-2px);
-}
-
-/* Logo */
-
-.logo {
-    font-size: 30px;
-    font-weight: 800;
-    color: var(--primary);
-    letter-spacing: 0.5px;
-}
-
-
-/* Navigation */
-
-.navbar {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-}
-
-.navbar a {
-    padding: 8px 16px;
-    border-radius: 10px;
-    color: var(--text-light);
-    font-size: 16px;
-    transition: 0.3s ease;
-}
-
-.navbar a:hover,
-.navbar a.active {
-    background-color: #edf4f0;
-    color: var(--primary);
 }
 
 
@@ -337,62 +305,6 @@ a {
 
 
 /* =========================
-   FOOTER
-========================= */
-
-.footer {
-    background-color: #123c30;
-    color: #dce8e2;
-    text-align: center;
-    padding: 25px 0;
-}
-
-.footer p {
-    font-size: 14px;
-}
-
-
-/* =========================
-   RESPONSIVE
-========================= */
-
-@media (max-width: 700px) {
-
-    .hero {
-        padding: 75px 15px;
-    }
-
-    .hero h1 {
-        font-size: 38px;
-    }
-
-    .hero p {
-        font-size: 17px;
-    }
-
-    .prayer-section,
-    .ayah-section,
-    .adhkar-section {
-        padding: 45px 0;
-    }
-
-    .section-card {
-        padding: 25px 18px;
-    }
-
-    .ayah {
-        font-size: 21px;
-    }
-
-    .prayer-time {
-        font-size: 40px;
-    }
-
-    .cards {
-        grid-template-columns: 1fr;
-    }
-}
-/* =========================
    CURRENT TIME
 ========================= */
 
@@ -412,6 +324,8 @@ a {
     font-weight: 800;
     direction: ltr;
 }
+
+
 /* =========================
    SECTION TITLES
 ========================= */
@@ -486,25 +400,6 @@ a {
 
 
 /* =========================
-   RESPONSIVE PRAYER
-========================= */
-
-@media (max-width: 800px) {
-
-    .prayer-grid {
-        grid-template-columns: repeat(3, 1fr);
-    }
-
-}
-
-@media (max-width: 500px) {
-
-    .prayer-grid {
-        grid-template-columns: repeat(2, 1fr);
-    }
-
-}
-/* =========================
    LOCATION
 ========================= */
 
@@ -533,6 +428,8 @@ a {
     color: var(--text-light);
     margin-bottom: 25px;
 }
+
+
 /* =========================
    PRAYER COUNTDOWN
 ========================= */
@@ -543,28 +440,24 @@ a {
     font-size: 18px;
     font-weight: 700;
 }
+
+
 /* =========================
-   MOBILE MENU
+   MOBILE MENU & TOGGLE
 ========================= */
 
 .menu-toggle {
     display: none;
-
     flex-direction: column;
     align-items: center;
     justify-content: center;
     gap: 5px;
-
     width: 34px;
     height: 34px;
-
     border: none;
     background: transparent;
-
     color: var(--primary);
-
     font-size: 28px;
-
     cursor: pointer;
 }
 
@@ -578,8 +471,32 @@ a {
 
 
 /* =========================
-   MOBILE
+   FOOTER
 ========================= */
+
+.footer {
+    background-color: #123c30;
+    color: #dce8e2;
+    text-align: center;
+    padding: 25px 0;
+}
+
+.footer p {
+    font-size: 14px;
+}
+
+
+/* =========================
+   RESPONSIVE
+========================= */
+
+@media (max-width: 800px) {
+
+    .prayer-grid {
+        grid-template-columns: repeat(3, 1fr);
+    }
+
+}
 
 @media (max-width: 768px) {
 
@@ -587,67 +504,89 @@ a {
         position: relative;
     }
 
-
     .menu-toggle {
         display: flex;
     }
-
 
     .header-button {
         display: none;
     }
 
-
     .navbar {
-
         position: absolute;
-
         top: calc(100% + 10px);
-
         right: 0;
         left: 0;
-
         display: none;
-
         flex-direction: column;
-
         gap: 0;
-
         padding: 10px;
-
         background-color: var(--white);
-
         border: 1px solid var(--border);
-
         border-radius: 14px;
-
         box-shadow: var(--shadow);
-
         z-index: 1000;
-
     }
-
 
     .navbar.open {
         display: flex;
     }
 
-
     .navbar a {
-
         width: 100%;
-
         padding: 14px 16px;
-
         border-radius: 10px;
-
         text-align: right;
-
     }
-
 
     .navbar a:hover {
         background-color: #edf4f0;
+    }
+
+}
+
+@media (max-width: 700px) {
+
+    .hero {
+        padding: 75px 15px;
+    }
+
+    .hero h1 {
+        font-size: 38px;
+    }
+
+    .hero p {
+        font-size: 17px;
+    }
+
+    .prayer-section,
+    .ayah-section,
+    .adhkar-section {
+        padding: 45px 0;
+    }
+
+    .section-card {
+        padding: 25px 18px;
+    }
+
+    .ayah {
+        font-size: 21px;
+    }
+
+    .prayer-time {
+        font-size: 40px;
+    }
+
+    .cards {
+        grid-template-columns: 1fr;
+    }
+
+}
+
+@media (max-width: 500px) {
+
+    .prayer-grid {
+        grid-template-columns: repeat(2, 1fr);
     }
 
 }

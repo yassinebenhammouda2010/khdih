@@ -28,11 +28,11 @@ setInterval(updateClock, 1000);
 
 
 // ========================================
-// 2. VARIABLES
+// 2. VARIABLES GLOBALES
 // ========================================
 
 let nextPrayer = null;
-let countdownInterval = null;
+let prayerCountdownInterval = null;
 
 
 // ========================================
@@ -92,8 +92,10 @@ async function getPrayerTimes(latitude, longitude) {
 
         console.error(error);
 
-        locationStatus.textContent =
-            "تعذر الحصول على مواقيت الصلاة";
+        if (locationStatus) {
+            locationStatus.textContent =
+                "تعذر الحصول على مواقيت الصلاة";
+        }
     }
 }
 
@@ -104,20 +106,17 @@ async function getPrayerTimes(latitude, longitude) {
 
 function displayPrayerTimes(timings) {
 
-    document.getElementById("fajr-time").textContent =
-        cleanTime(timings.Fajr);
+    const fajrEl = document.getElementById("fajr-time");
+    const dhuhrEl = document.getElementById("dhuhr-time");
+    const asrEl = document.getElementById("asr-time");
+    const maghribEl = document.getElementById("maghrib-time");
+    const ishaEl = document.getElementById("isha-time");
 
-    document.getElementById("dhuhr-time").textContent =
-        cleanTime(timings.Dhuhr);
-
-    document.getElementById("asr-time").textContent =
-        cleanTime(timings.Asr);
-
-    document.getElementById("maghrib-time").textContent =
-        cleanTime(timings.Maghrib);
-
-    document.getElementById("isha-time").textContent =
-        cleanTime(timings.Isha);
+    if (fajrEl) fajrEl.textContent = cleanTime(timings.Fajr);
+    if (dhuhrEl) dhuhrEl.textContent = cleanTime(timings.Dhuhr);
+    if (asrEl) asrEl.textContent = cleanTime(timings.Asr);
+    if (maghribEl) maghribEl.textContent = cleanTime(timings.Maghrib);
+    if (ishaEl) ishaEl.textContent = cleanTime(timings.Isha);
 
 
     findNextPrayer(timings);
@@ -202,11 +201,11 @@ function findNextPrayer(timings) {
     }
 
 
-    document.getElementById("next-prayer-name")
-        .textContent = nextPrayer.name;
+    const nextNameEl = document.getElementById("next-prayer-name");
+    const nextTimeEl = document.getElementById("next-prayer-time");
 
-    document.getElementById("next-prayer-time")
-        .textContent = nextPrayer.time;
+    if (nextNameEl) nextNameEl.textContent = nextPrayer.name;
+    if (nextTimeEl) nextTimeEl.textContent = nextPrayer.time;
 
 
     startCountdown(nextPrayer);
@@ -219,8 +218,8 @@ function findNextPrayer(timings) {
 
 function startCountdown(prayer) {
 
-    if (countdownInterval) {
-        clearInterval(countdownInterval);
+    if (prayerCountdownInterval) {
+        clearInterval(prayerCountdownInterval);
     }
 
 
@@ -234,10 +233,7 @@ function startCountdown(prayer) {
 
         const target = new Date();
 
-        target.setHours(hours);
-        target.setMinutes(minutes);
-        target.setSeconds(0);
-        target.setMilliseconds(0);
+        target.setHours(hours, minutes, 0, 0);
 
 
         // Si c'est demain
@@ -250,14 +246,15 @@ function startCountdown(prayer) {
             target.getTime() - now.getTime();
 
 
+        const countdownEl = document.getElementById("prayer-countdown");
+
         if (difference <= 0) {
 
-            document.getElementById(
-                "prayer-countdown"
-            ).textContent =
-                "حان وقت الصلاة";
+            if (countdownEl) {
+                countdownEl.textContent = "حان وقت الصلاة";
+            }
 
-            clearInterval(countdownInterval);
+            clearInterval(prayerCountdownInterval);
 
             return;
         }
@@ -277,18 +274,18 @@ function startCountdown(prayer) {
             totalSeconds % 60;
 
 
-        document.getElementById(
-            "prayer-countdown"
-        ).textContent =
-            `متبقي ${String(hoursLeft).padStart(2, "0")}:` +
-            `${String(minutesLeft).padStart(2, "0")}:` +
-            `${String(secondsLeft).padStart(2, "0")}`;
+        if (countdownEl) {
+            countdownEl.textContent =
+                `متبقي ${String(hoursLeft).padStart(2, "0")}:` +
+                `${String(minutesLeft).padStart(2, "0")}:` +
+                `${String(secondsLeft).padStart(2, "0")}`;
+        }
     }
 
 
     updateCountdown();
 
-    countdownInterval =
+    prayerCountdownInterval =
         setInterval(updateCountdown, 1000);
 }
 
@@ -305,15 +302,19 @@ if (locationButton) {
 
             if (!navigator.geolocation) {
 
-                locationStatus.textContent =
-                    "المتصفح لا يدعم تحديد الموقع";
+                if (locationStatus) {
+                    locationStatus.textContent =
+                        "المتصفح لا يدعم تحديد الموقع";
+                }
 
                 return;
             }
 
 
-            locationStatus.textContent =
-                "جاري تحديد موقعك...";
+            if (locationStatus) {
+                locationStatus.textContent =
+                    "جاري تحديد موقعك...";
+            }
 
 
             navigator.geolocation.getCurrentPosition(
@@ -332,8 +333,10 @@ if (locationButton) {
                     );
 
 
-                    locationStatus.textContent =
-                        "تم تحديد موقعك بنجاح ✓";
+                    if (locationStatus) {
+                        locationStatus.textContent =
+                            "تم تحديد موقعك بنجاح ✓";
+                    }
 
 
                     await getPrayerTimes(
@@ -346,8 +349,10 @@ if (locationButton) {
 
                 () => {
 
-                    locationStatus.textContent =
-                        "تعذر تحديد موقعك";
+                    if (locationStatus) {
+                        locationStatus.textContent =
+                            "تعذر تحديد موقعك";
+                    }
 
                 }
 

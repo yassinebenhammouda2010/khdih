@@ -2,196 +2,132 @@
 <html lang="ar" dir="rtl">
 
 <head>
-
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <meta
-        name="viewport"
-        content="width=device-width, initial-scale=1.0"
-    >
+    <title>Kihdih | قراءة السورة</title>
 
-    <title>Kihdih | القرآن الكريم</title>
-
-    <link
-        rel="stylesheet"
-        href="css/style.css"
-    >
-
-    <link
-        rel="stylesheet"
-        href="css/surah.css"
-    >
-
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/surah.css">
 </head>
-
 
 <body>
 
-
-    <!-- ================= HEADER ================= -->
-
+    <!-- HEADER -->
     <header class="header">
 
-    <div class="container header-content">
+        <div class="container header-content">
 
-        <a
-            href="index.html"
-            class="logo"
-        >
-            Kihdih
-        </a>
-
-
-        <nav
-            class="navbar"
-            id="navbar"
-        >
-
-            <a href="index.html">
-                الرئيسية
+            <a href="index.html" class="logo">
+                Kihdih
             </a>
 
-            <a href="quran.html">
+            <nav class="navbar" id="navbar">
+
+                <a href="index.html">الرئيسية</a>
+
+                <a href="quran.html">القرآن الكريم</a>
+
+                <a href="bukhari.html">صحيح البخاري</a>
+
+                <a href="adhkar.html">الأذكار</a>
+
+                <a href="prayer.html">الصلاة</a>
+
+                <a href="aya.html">آية لك</a>
+
+                <a href="competition.html">🏆 مسابقة</a>
+
+                <a href="habits.html">📿 عاداتي</a>
+
+            </nav>
+
+            <a href="quran.html" class="header-button">
                 القرآن الكريم
             </a>
-            <a href="bukhari.html">
-    صحيح البخاري
-</a>
 
-            <a href="adhkar.html">
-                الأذكار
-            </a>
+            <button
+                class="menu-toggle"
+                id="menu-toggle"
+                aria-label="فتح القائمة"
+                aria-expanded="false"
+                type="button"
+            >
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
 
-            <a href="prayer.html">
-                الصلاة
-            </a>
-            <a href="aya.html">
-    آية لك
-</a>
+        </div>
 
-                    <a href="competition.html">
-                🏆 مسابقة
-            </a>
-
-                    <a href="habits.html">
-                📿 عاداتي
-            </a>
-
-        </nav>
+    </header>
 
 
-        <a
-            href="index.html"
-            class="header-button"
-        >
-            الرئيسية
-        </a>
-
-
-        <!-- MENU MOBILE -->
-
-        <button
-            class="menu-toggle"
-            id="menu-toggle"
-            aria-label="فتح القائمة"
-        >
-            ☰
-        </button>
-
-    </div>
-
-</header>
-
-
-    <!-- ================= MAIN ================= -->
-
+    <!-- MAIN -->
     <main>
 
-        <section class="surah-page">
+        <section class="surah-reading">
 
             <div class="container">
 
+                <!-- SURAH HEADER -->
+                <div class="surah-header">
 
-                <!-- Informations sourate -->
+                    <h1 id="surah-name">
+                        جاري التحميل...
+                    </h1>
 
-                <div
-                    id="surah-header"
-                    class="surah-header"
-                >
-
-                    <p>
+                    <p id="surah-info">
                         جاري تحميل السورة...
                     </p>
 
                 </div>
 
 
-                <!-- Navigation sourates -->
-
+                <!-- NAVIGATION -->
                 <div class="surah-navigation">
 
                     <button
                         id="previous-surah"
-                        class="surah-nav-button"
+                        type="button"
                     >
-                        ← السورة السابقة
+                        → السورة السابقة
                     </button>
-
 
                     <a
                         href="quran.html"
-                        class="surah-nav-button"
+                        class="back-to-quran"
                     >
-                        📖 السور
+                        القرآن الكريم
                     </a>
-
 
                     <button
                         id="next-surah"
-                        class="surah-nav-button"
+                        type="button"
                     >
-                        السورة التالية →
+                        السورة التالية ←
                     </button>
 
                 </div>
 
 
-                <!-- Versets -->
+                <!-- TILAWAH HINT -->
+                <div class="ayah-tilawah-hint">
 
+                    💡 للاستماع من آية محددة، اضغط على رقم الآية.
+
+                </div>
+
+
+                <!-- AYAH CONTAINER -->
                 <div
                     id="ayahs-container"
                     class="ayahs-container"
                 >
 
-                </div>
-
-
-                <!-- Navigation en bas -->
-
-                <div class="surah-navigation bottom-navigation">
-
-                    <button
-                        id="previous-surah-bottom"
-                        class="surah-nav-button"
-                    >
-                        ← السورة السابقة
-                    </button>
-
-
-                    <a
-                        href="quran.html"
-                        class="surah-nav-button"
-                    >
-                        📖 السور
-                    </a>
-
-
-                    <button
-                        id="next-surah-bottom"
-                        class="surah-nav-button"
-                    >
-                        السورة التالية →
-                    </button>
+                    <p class="loading">
+                        جاري تحميل الآيات...
+                    </p>
 
                 </div>
 
@@ -202,8 +138,7 @@
     </main>
 
 
-    <!-- ================= FOOTER ================= -->
-
+    <!-- FOOTER -->
     <footer class="footer">
 
         <div class="container">

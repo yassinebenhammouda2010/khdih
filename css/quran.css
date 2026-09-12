@@ -37,6 +37,7 @@
 .section-heading h2 {
     color: var(--primary);
     font-size: 30px;
+    margin-bottom: 8px;
 }
 
 .section-heading p {
@@ -50,22 +51,144 @@
 
 .quran-search {
     max-width: 550px;
-    margin: 0 auto 40px;
+    margin: 0 auto 25px;
 }
 
 .quran-search input {
     width: 100%;
     padding: 15px 20px;
+
     border: 1px solid var(--border);
     border-radius: 12px;
+
     background-color: var(--white);
     color: var(--text);
+
     font-family: inherit;
     font-size: 16px;
+
     outline: none;
+
+    box-sizing: border-box;
 }
 
 .quran-search input:focus {
+    border-color: var(--primary);
+}
+
+
+/* =========================
+   AYAH SEARCH RESULTS
+========================= */
+
+.ayah-search-results {
+    max-width: 850px;
+    margin: 0 auto 35px;
+}
+
+.ayah-search-results.hidden {
+    display: none;
+}
+
+.ayah-search-heading {
+    color: var(--text-light);
+    font-size: 14px;
+    margin-bottom: 14px;
+    text-align: center;
+}
+
+.ayah-result-card {
+    background-color: var(--white);
+
+    border: 1px solid var(--border);
+    border-radius: 16px;
+
+    padding: 22px;
+    margin-bottom: 14px;
+
+    box-shadow: var(--shadow);
+
+    cursor: pointer;
+
+    transition: 0.2s ease;
+}
+
+.ayah-result-card:hover {
+    border-color: var(--secondary);
+    transform: translateY(-2px);
+}
+
+.ayah-result-text {
+    font-size: 19px;
+    line-height: 2.1;
+
+    color: var(--text);
+
+    margin-bottom: 10px;
+}
+
+.ayah-result-ref {
+    color: var(--primary);
+
+    font-size: 13px;
+    font-weight: 700;
+}
+
+.ayah-search-loading,
+.ayah-search-empty {
+    text-align: center;
+
+    color: var(--text-light);
+
+    padding: 20px;
+}
+
+
+/* =========================
+   RECITER SELECT
+========================= */
+
+.reciter-select-row {
+    max-width: 550px;
+
+    margin: 0 auto 35px;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    gap: 10px;
+
+    font-size: 15px;
+
+    color: var(--text-light);
+}
+
+.reciter-select-row label {
+    white-space: nowrap;
+}
+
+.reciter-select-row select {
+    flex: 1;
+
+    max-width: 320px;
+
+    padding: 10px 14px;
+
+    border: 1px solid var(--border);
+    border-radius: 10px;
+
+    background-color: var(--white);
+    color: var(--text);
+
+    font-family: inherit;
+    font-size: 15px;
+
+    outline: none;
+}
+
+.reciter-select-row select:focus {
     border-color: var(--primary);
 }
 
@@ -76,8 +199,14 @@
 
 .surahs-grid {
     display: grid;
+
     grid-template-columns: repeat(3, 1fr);
+
     gap: 20px;
+}
+
+.surahs-grid.hidden {
+    display: none;
 }
 
 
@@ -87,58 +216,270 @@
 
 .surah-card {
     background-color: var(--white);
+
     border: 1px solid var(--border);
     border-radius: 16px;
+
     padding: 22px;
+
     display: flex;
+
     align-items: center;
+
     gap: 18px;
+
     box-shadow: var(--shadow);
+
     cursor: pointer;
+
     transition: 0.3s ease;
 }
 
 .surah-card:hover {
     transform: translateY(-4px);
+
     border-color: var(--secondary);
 }
 
 
-/* Numéro */
+/* =========================
+   SURAH NUMBER
+========================= */
 
 .surah-number {
     width: 45px;
     height: 45px;
+
     border-radius: 50%;
+
     background-color: #edf4f0;
+
     color: var(--primary);
+
     display: flex;
+
     align-items: center;
     justify-content: center;
+
     font-weight: 800;
+
     flex-shrink: 0;
 }
 
 
-/* Nom */
+/* =========================
+   SURAH INFO
+========================= */
 
 .surah-info {
     flex: 1;
+    min-width: 0;
 }
 
 .surah-name {
     color: var(--primary);
+
     font-size: 20px;
+
     font-weight: 700;
+
+    margin-bottom: 3px;
 }
 
 .surah-english {
     color: var(--text-light);
+
     font-size: 13px;
 }
 
+.surah-meta {
+    display: flex;
 
-/* Responsive */
+    gap: 8px;
+
+    margin-top: 6px;
+}
+
+.surah-meta span {
+    font-size: 11px;
+
+    color: var(--text-light);
+
+    background-color: #edf4f0;
+
+    padding: 2px 8px;
+
+    border-radius: 20px;
+}
+
+
+/* =========================
+   PLAY BUTTON
+========================= */
+
+.surah-play-button {
+    width: 42px;
+    height: 42px;
+
+    border-radius: 50%;
+
+    border: none;
+
+    background-color: var(--primary);
+
+    color: var(--white);
+
+    font-size: 16px;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    cursor: pointer;
+
+    flex-shrink: 0;
+
+    transition: 0.2s ease;
+}
+
+.surah-play-button:hover {
+    background-color: var(--primary-light);
+
+    transform: scale(1.05);
+}
+
+.surah-play-button.playing {
+    background-color: var(--secondary);
+}
+
+
+/* =========================
+   LOADING
+========================= */
+
+.loading {
+    grid-column: 1 / -1;
+
+    text-align: center;
+
+    color: var(--text-light);
+
+    font-size: 18px;
+
+    padding: 40px;
+}
+
+
+/* =========================
+   MINI PLAYER
+========================= */
+
+.mini-player {
+    position: fixed;
+
+    bottom: 0;
+    left: 0;
+    right: 0;
+
+    z-index: 1200;
+
+    background-color: var(--primary);
+
+    color: var(--white);
+
+    padding: 12px 20px;
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 16px;
+
+    box-shadow: 0 -10px 30px rgba(0, 0, 0, 0.15);
+}
+
+.mini-player.hidden {
+    display: none;
+}
+
+.mini-player-info {
+    display: flex;
+
+    flex-direction: column;
+
+    min-width: 160px;
+}
+
+.mini-player-info span:first-child {
+    font-weight: 700;
+
+    font-size: 15px;
+}
+
+.mini-player-reciter {
+    font-size: 12px;
+
+    color: #dce8e2;
+}
+
+.mini-player-progress-bg {
+    flex: 1;
+
+    height: 6px;
+
+    background-color: rgba(255, 255, 255, 0.2);
+
+    border-radius: 20px;
+
+    overflow: hidden;
+}
+
+.mini-player-progress-fill {
+    height: 100%;
+
+    width: 0%;
+
+    background-color: var(--secondary);
+
+    border-radius: 20px;
+
+    transition: width 0.1s linear;
+}
+
+.mini-player-controls {
+    display: flex;
+
+    gap: 8px;
+
+    flex-shrink: 0;
+}
+
+.mini-player-controls button {
+    width: 36px;
+    height: 36px;
+
+    border-radius: 50%;
+
+    border: none;
+
+    background-color: rgba(255, 255, 255, 0.15);
+
+    color: var(--white);
+
+    font-size: 15px;
+
+    cursor: pointer;
+}
+
+.mini-player-controls button:hover {
+    background-color: rgba(255, 255, 255, 0.25);
+}
+
+
+/* =========================
+   RESPONSIVE
+========================= */
 
 @media (max-width: 850px) {
 
@@ -148,7 +489,8 @@
 
 }
 
-@media (max-width: 550px) {
+
+@media (max-width: 650px) {
 
     .quran-hero {
         padding: 60px 15px;
@@ -158,19 +500,55 @@
         font-size: 38px;
     }
 
+    .reciter-select-row {
+        flex-direction: column;
+
+        align-items: stretch;
+
+        text-align: center;
+    }
+
+    .reciter-select-row select {
+        max-width: none;
+
+        width: 100%;
+    }
+
+    .mini-player {
+        flex-wrap: wrap;
+
+        padding: 10px 15px;
+    }
+
+    .mini-player-info {
+        min-width: 0;
+
+        flex: 1;
+    }
+
+    .mini-player-progress-bg {
+        order: 3;
+
+        width: 100%;
+
+        flex-basis: 100%;
+    }
+
+}
+
+
+@media (max-width: 550px) {
+
     .surahs-grid {
         grid-template-columns: 1fr;
     }
 
-}
-/* =========================
-   LOADING
-========================= */
+    .surah-card {
+        padding: 18px;
+    }
 
-.loading {
-    grid-column: 1 / -1;
-    text-align: center;
-    color: var(--text-light);
-    font-size: 18px;
-    padding: 40px;
+    .surah-name {
+        font-size: 18px;
+    }
+
 }

@@ -32,84 +32,86 @@
 
     <header class="header">
 
-    <div class="container header-content">
+        <div class="container header-content">
 
-        <!-- LOGO -->
+            <!-- LOGO -->
 
-        <a
-            href="index.html"
-            class="logo"
-        >
-            Kihdih
-        </a>
-
-
-        <!-- NAVIGATION -->
-
-        <nav
-            class="navbar"
-            id="navbar"
-        >
-
-            <a href="index.html">
-                الرئيسية
+            <a
+                href="index.html"
+                class="logo"
+            >
+                Kihdih
             </a>
 
-            <a href="quran.html">
-                القرآن الكريم
+
+            <!-- NAVIGATION -->
+
+            <nav
+                class="navbar"
+                id="navbar"
+            >
+
+                <a href="index.html" class="active">
+                    الرئيسية
+                </a>
+
+                <a href="quran.html">
+                    القرآن الكريم
+                </a>
+
+                <a href="bukhari.html">
+                    صحيح البخاري
+                </a>
+
+                <a href="adhkar.html">
+                    الأذكار
+                </a>
+
+                <a href="prayer.html">
+                    الصلاة
+                </a>
+
+                <a href="aya.html">
+                    آية لك
+                </a>
+
+                <a href="competition.html">
+                    🏆 مسابقة
+                </a>
+
+                <a href="habits.html">
+                    📿 عاداتي
+                </a>
+
+            </nav>
+
+
+            <!-- BOUTON DESKTOP -->
+
+            <a
+                href="quran.html"
+                class="header-button"
+            >
+                ابدأ القراءة
             </a>
-            <a href="bukhari.html">
-    صحيح البخاري
-</a>
-
-            <a href="adhkar.html">
-                الأذكار
-            </a>
-
-            <a href="prayer.html">
-                الصلاة
-            </a>
-            <a href="aya.html">
-    آية لك
-</a>
-
-                    <a href="competition.html">
-                🏆 مسابقة
-            </a>
-
-            <a href="habits.html">
-                📿 عاداتي
-            </a>
-
-        </nav>
 
 
-        <!-- BOUTON DESKTOP -->
+            <!-- BOUTON MOBILE -->
 
-        <a
-            href="quran.html"
-            class="header-button"
-        >
-            ابدأ القراءة
-        </a>
+            <button
+                class="menu-toggle"
+                id="menu-toggle"
+                aria-label="فتح القائمة"
+                aria-expanded="false"
+            >
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
 
+        </div>
 
-        <!-- BOUTON MOBILE -->
-
-        <button
-            class="menu-toggle"
-            id="menu-toggle"
-            aria-label="فتح القائمة"
-            aria-expanded="false"
-        >
-            <span></span>
-            <span></span>
-            <span></span>
-        </button>
-
-    </div>
-
-</header>
+    </header>
 
 
     <!-- ================= MAIN ================= -->
@@ -202,7 +204,7 @@
 
                 <div class="stat-item">
                     <strong>10</strong>
-                    <span>أذكار صباح ومساء</span>
+                    <span>أذكار صباح ومساء بعد الصلاة...</span>
                 </div>
 
                 <div class="stat-item">
@@ -657,7 +659,11 @@
         const widgetProgressBar = document.getElementById("widget-progress-bar");
         const widgetStreak = document.getElementById("widget-streak");
 
-        if (widgetProgressText && typeof kihdihLoadData === "function") {
+        if (
+            widgetProgressText &&
+            typeof kihdihLoadData === "function" &&
+            typeof KIHDIH_HABITS !== "undefined"
+        ) {
 
             const habitData = kihdihLoadData();
             const todayKey = kihdihTodayKey();
