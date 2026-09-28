@@ -1,0 +1,170 @@
+/* ========================================
+   Kihdih - تلاوات مشهورة
+======================================== */
+
+.tilawat-page {
+    min-height: 80vh;
+    background: var(--background);
+    padding: 0 0 80px;
+}
+
+
+/* ================================
+   Header (comme le hero du site)
+================================ */
+
+.tilawat-header {
+    padding: 90px 20px 70px;
+    margin: 0 0 50px;
+    text-align: center;
+
+    background:
+        radial-gradient(
+            circle at top,
+            rgba(198, 161, 91, 0.15),
+            transparent 40%
+        ),
+        var(--primary);
+
+    color: var(--white);
+}
+
+.tilawat-header h1 {
+    margin: 0 0 15px;
+    font-size: clamp(32px, 6vw, 48px);
+    font-weight: 800;
+    color: var(--white);
+}
+
+.tilawat-header p {
+    margin: 0;
+    font-size: 18px;
+    color: #e1ebe6;
+}
+
+
+/* ================================
+   Grid
+================================ */
+
+.tilawat-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 25px;
+}
+
+
+/* ================================
+   Card
+================================ */
+
+.tilawat-card {
+    background-color: var(--white);
+    border: 1px solid var(--border);
+    border-radius: 18px;
+    padding: 30px;
+
+    text-align: center;
+
+    box-shadow: var(--shadow);
+
+    transition: 0.3s ease;
+}
+
+.tilawat-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 15px 35px rgba(23, 76, 59, 0.12);
+}
+
+
+/* ================================
+   Card title
+================================ */
+
+.tilawat-card h2 {
+    margin: 0 0 8px;
+
+    font-size: 22px;
+    font-weight: 700;
+
+    color: var(--secondary);
+}
+
+
+/* ================================
+   Surah
+================================ */
+
+.tilawat-surah {
+    margin: 0 0 18px;
+
+    font-size: 15px;
+    font-weight: 600;
+
+    color: var(--primary);
+    opacity: 0.8;
+}
+
+
+/* ================================
+   Ayah
+================================ */
+
+.tilawat-ayah {
+    margin: 0 auto 24px;
+    max-width: 800px;
+
+    font-size: 21px;
+    line-height: 2;
+    font-weight: 600;
+
+    color: var(--text);
+}
+
+
+/* ================================
+   Audio
+================================ */
+
+.tilawat-audio {
+    width: 100%;
+    display: block;
+}
+
+
+/* ================================
+   Mobile
+================================ */
+
+@media (max-width: 700px) {
+
+    .tilawat-header {
+        padding: 65px 15px 45px;
+        margin-bottom: 30px;
+    }
+
+    .tilawat-header h1 {
+        font-size: 32px;
+    }
+
+    .tilawat-header p {
+        font-size: 16px;
+    }
+
+    .tilawat-grid {
+        grid-template-columns: 1fr;
+        gap: 18px;
+    }
+
+    .tilawat-card {
+        padding: 22px 18px;
+    }
+
+    .tilawat-card h2 {
+        font-size: 20px;
+    }
+
+    .tilawat-ayah {
+        font-size: 18px;
+    }
+}

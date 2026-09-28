@@ -500,40 +500,6 @@
         font-size: 38px;
     }
 
-    .reciter-select-row {
-        flex-direction: column;
-
-        align-items: stretch;
-
-        text-align: center;
-    }
-
-    .reciter-select-row select {
-        max-width: none;
-
-        width: 100%;
-    }
-
-    .mini-player {
-        flex-wrap: wrap;
-
-        padding: 10px 15px;
-    }
-
-    .mini-player-info {
-        min-width: 0;
-
-        flex: 1;
-    }
-
-    .mini-player-progress-bg {
-        order: 3;
-
-        width: 100%;
-
-        flex-basis: 100%;
-    }
-
 }
 
 
